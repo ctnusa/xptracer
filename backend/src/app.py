@@ -2,16 +2,10 @@ from http import HTTPStatus
 
 from flask import Flask, jsonify, request
 from graphene import Schema, String, ObjectType
-
-class Query(ObjectType):
-    hello = String()
-
-    def resolve_hello(root, info):
-        return "Something here"
+from schema import schema
 
 def create_app(config=None):
     app = Flask(__name__)
-    schema = Schema(query=Query)
 
     @app.route('/')
     def index():
