@@ -1,5 +1,6 @@
 from graphene import ObjectType, String
 
+
 class UserQuery(ObjectType):
     hello = String()
 
