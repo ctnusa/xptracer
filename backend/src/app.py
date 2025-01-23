@@ -1,11 +1,15 @@
 from http import HTTPStatus
 
 from flask import Flask, jsonify, request
+from flask_bcrypt import Bcrypt
 from schema import schema
+
+bcrypt = Bcrypt()
 
 
 def create_app(config=None):
     app = Flask(__name__)
+    bcrypt.init_app(app)
 
     @app.route('/')
     def index():

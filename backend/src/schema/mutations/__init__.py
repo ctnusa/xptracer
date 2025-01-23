@@ -1,5 +1,8 @@
-from .user_mutations import CreateUser
 import graphene
 
+from .user_mutations import LoginUser, RegisterUser
+
+
 class Mutation(graphene.ObjectType):
-    create_user = CreateUser.Field()
+    register_user = RegisterUser.Field()
+    login_user = LoginUser.Field()
