@@ -1,8 +1,10 @@
-from graphene import ObjectType, String
+import graphene
+
+from ..types.user_types import User
 
 
-class UserQuery(ObjectType):
-    hello = String()
+class UserQuery(graphene.ObjectType):
+    user = graphene.Field(User)
 
-    def resolve_hello(root, info):
-        return "Something here"
+    def resolve_user(root, info):
+        return User(firstname="Chi Tam", lastname="Nguyen")

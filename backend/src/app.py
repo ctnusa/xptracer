@@ -3,6 +3,7 @@ from http import HTTPStatus
 from flask import Flask, jsonify, request
 from schema import schema
 
+
 def create_app(config=None):
     app = Flask(__name__)
 
