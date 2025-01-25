@@ -136,7 +136,8 @@ class LoginUser(graphene.Mutation):
         username = graphene.String(required=True)
         password = graphene.String(required=True)
 
-    success = graphene.Boolean()
+    ok = graphene.Boolean()
+    message = graphene.String()
 
     def mutate(root, info, username, password):
         from app import bcrypt
@@ -144,8 +145,12 @@ class LoginUser(graphene.Mutation):
         for user in users_db:
             if username == user.username and bcrypt.check_password_hash(user.password, password):
                 return LoginUser(success=True)
-            return LoginUser(success=False)
+            return LoginUser(success=False, message="Invalid username or password.")
+        return LoginUser(success=False, message="User not found.")
 
 
-# class LogoutUser(graphene.Mutation):
-#     pass
+class LogoutUser(graphene.Mutation):
+    ok = graphene.Boolean()
+
+    def mutate(root, info):
+        return LogoutUser(ok=True)
