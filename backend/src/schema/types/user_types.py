@@ -1,4 +1,6 @@
 import graphene
+from graphene_sqlalchemy import SQLAlchemyObjectType
+from models.user_model import UserModel
 
 
 class RegisterUserInput(graphene.InputObjectType):
@@ -8,10 +10,8 @@ class RegisterUserInput(graphene.InputObjectType):
     firstname = graphene.String(required=True)
     lastname = graphene.String(required=True)
 
-class User(graphene.ObjectType):
-    id = graphene.ID()
-    firstname = graphene.String()
-    lastname = graphene.String()
-    username = graphene.String()
-    email = graphene.String()
-    password = graphene.String()
+
+class User(SQLAlchemyObjectType):
+    class Meta:
+        model = UserModel
+        exclude_fields = ('id', 'password')
