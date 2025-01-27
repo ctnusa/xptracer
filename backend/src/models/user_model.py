@@ -1,9 +1,7 @@
-# Base = declarative_base()
 from db import db
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 
-# Define base class for declarative models
 Base = db.Model
 
 
@@ -16,6 +14,10 @@ class UserModel(Base):
     password = Column(String, nullable=False)
     firstname = Column(String, nullable=False)
     lastname = Column(String, nullable=False)
+    is_active = Column(Boolean, default=True)
 
     def __repr__(self):
         return f"<User {self.username}>"
+
+    def get_id(self):
+        return self.id

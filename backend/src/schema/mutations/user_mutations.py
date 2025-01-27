@@ -4,6 +4,7 @@ import string
 import graphene
 from db import db
 from email_validator import EmailNotValidError, validate_email
+from flask_login import current_user, login_user, logout_user
 from models.user_model import UserModel
 from sqlalchemy import select
 
@@ -138,6 +139,21 @@ class RegisterUser(graphene.Mutation):
 
 
 class LoginUser(graphene.Mutation):
+    """
+    Mutation class for logging in a user.
+
+    Attributes:
+        ok (graphene.Boolean): Indicates whether the mutation was successful.
+        message (graphene.String): A message indicating the result of the mutation.
+
+    Arguments:
+        username (graphene.String): The username of the user.
+        password (graphene.String): The password of the user.
+
+    Methods:
+        mutate(root, info, username, password):
+            Validates the username and password, and logs in the user if the credentials are correct.
+    """
     class Arguments:
         username = graphene.String(required=True)
         password = graphene.String(required=True)
@@ -146,17 +162,51 @@ class LoginUser(graphene.Mutation):
     message = graphene.String()
 
     def mutate(root, info, username, password):
+        """
+        Validates the username and password, and logs in the user if the credentials are correct.
+
+        Args:
+            root: The root object (not used).
+            info: The GraphQL execution info.
+            username (str): The username of the user.
+            password (str): The password of the user.
+
+        Returns:
+            LoginUser: An object containing the result of the mutation, including a success flag and a message.
+        """
         from app import bcrypt
 
         smtm = select(UserModel).where(UserModel.username == username)
         user = db.session.execute(smtm).scalar_one_or_none()
         if user and bcrypt.check_password_hash(user.password, password):
+            login_user(user)
             return LoginUser(ok=True)
         return LoginUser(ok=False, message="Invalid username or password.")
 
 
 class LogoutUser(graphene.Mutation):
+    """
+    Mutation class for logging out a user.
+
+    Attributes:
+        ok (graphene.Boolean): Indicates whether the mutation was successful.
+
+    Methods:
+        mutate(root, info):
+            Logs out the user.
+    """
     ok = graphene.Boolean()
 
     def mutate(root, info):
+        """
+        Logs out the user.
+
+        Args:
+            root: The root object (not used).
+            info: The GraphQL execution info.
+
+        Returns:
+            LogoutUser: An object containing the result of the mutation, including a success flag.
+        """
+        logout_user()
         return LogoutUser(ok=True)
