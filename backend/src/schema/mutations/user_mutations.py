@@ -2,8 +2,10 @@ import re
 import string
 
 import graphene
+from db import db
 from email_validator import EmailNotValidError, validate_email
 from models.user_model import UserModel
+from sqlalchemy import select
 
 from ..types.user_types import RegisterUserInput, User
 
@@ -53,6 +55,7 @@ class RegisterUser(graphene.Mutation):
             RegisterUser: An object containing the result of the mutation, including the newly created user, a success flag, and a message.
         """
         from app import bcrypt
+        from db import db
 
         try:
             RegisterUser.__validate_username(input.username)
@@ -62,7 +65,6 @@ class RegisterUser(graphene.Mutation):
             return RegisterUser(ok=False, message=e.args[0])
 
         new_user = UserModel(
-            id=len(users_db) + 1,
             firstname=input.firstname,
             lastname=input.lastname,
             email=input.email,
@@ -70,8 +72,8 @@ class RegisterUser(graphene.Mutation):
                 password=input.password).decode("utf-8"),
             username=input.username
         )
-
-        users_db.append(new_user)
+        db.session.add(new_user)
+        db.session.commit()
         return RegisterUser(user=new_user, ok=True)
 
     @staticmethod
@@ -85,6 +87,8 @@ class RegisterUser(graphene.Mutation):
         Raises:
             ValueError: If the username is invalid.
         """
+        from db import db
+
         if " " in username:
             raise ValueError("Username cannot contain spaces.")
         if len(username) < 3 or len(username) > 20:
@@ -92,8 +96,8 @@ class RegisterUser(graphene.Mutation):
         if not re.match(r'^[A-Za-z][A-Za-z0-9_-]*$', username):
             raise ValueError(
                 "Username can only contain letters, numbers, underscores, and hyphens, and must start with a letter.")
-        if any(user.username == username for user in users_db):
-            raise ValueError("Username already exists")
+        if db.session.query(UserModel).filter_by(username=username).first():
+            raise ValueError("Username already exists.")
 
     @staticmethod
     def __validate_password(password):
@@ -122,12 +126,14 @@ class RegisterUser(graphene.Mutation):
         Raises:
             ValueError: If the email is invalid.
         """
+        from db import db
+
         try:
             validate_email(email)
         except EmailNotValidError:
             raise ValueError("Invalid email address.")
 
-        if any(user.email == email for user in users_db):
+        if db.session.query(UserModel).filter_by(email=email).first():
             raise ValueError("Email already exists.")
 
 
@@ -142,11 +148,11 @@ class LoginUser(graphene.Mutation):
     def mutate(root, info, username, password):
         from app import bcrypt
 
-        for user in users_db:
-            if username == user.username and bcrypt.check_password_hash(user.password, password):
-                return LoginUser(success=True)
-            return LoginUser(success=False, message="Invalid username or password.")
-        return LoginUser(success=False, message="User not found.")
+        smtm = select(UserModel).where(UserModel.username == username)
+        user = db.session.execute(smtm).scalar_one_or_none()
+        if user and bcrypt.check_password_hash(user.password, password):
+            return LoginUser(ok=True)
+        return LoginUser(ok=False, message="Invalid username or password.")
 
 
 class LogoutUser(graphene.Mutation):
