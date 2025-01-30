@@ -1,6 +1,5 @@
 import graphene
-
-from .user_mutations import LoginUser, RegisterUser, LogoutUser
+from app.schema.mutations.user_mutations import LoginUser, LogoutUser, RegisterUser
 
 
 class Mutation(graphene.ObjectType):

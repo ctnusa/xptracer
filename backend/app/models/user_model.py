@@ -1,6 +1,5 @@
-from db import db
-from sqlalchemy import Column, Integer, String, Boolean
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Boolean, Column, Integer, String
+from app.extension import db
 
 Base = db.Model
 

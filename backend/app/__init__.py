@@ -1,16 +1,16 @@
 from dotenv import load_dotenv
 
-load_dotenv()  # noqa: skip-imports
+# load_dotenv()  # noqa: skip-imports
 
 import os
 from http import HTTPStatus
 
-from configs import app_config
-from db import db
+from app.config import app_config
+from app.extension import db
+from app.schema import schema
 from flask import Flask, jsonify, request
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-from schema import schema
 
 bcrypt = Bcrypt()
 
@@ -67,7 +67,9 @@ def create_app(env):
         data = request.get_json()
         if "query" not in data:
             return jsonify({"error": "Missing 'query' in request"}), HTTPStatus.BAD_REQUEST
-
+        print("NEEEEEEEE INIT")
+        print(data["query"])
+        print(data["variables"])
         result = schema.execute(data["query"], variables=data.get("variables"))
         if result.errors:
             return jsonify({"errors": [str(error) for error in result.errors]}), HTTPStatus.BAD_REQUEST
@@ -76,7 +78,7 @@ def create_app(env):
     return app
 
 
-if __name__ == "__main__":
-    app = create_app(os.getenv("XPTRACER_ENV", "dev"))
-    # app.run(debug=os.getenv("DEBUG", False))
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app = create_app(os.getenv("XPTRACER_ENV", "dev"))
+#     # app.run(debug=os.getenv("DEBUG", False))
+#     app.run(debug=True)

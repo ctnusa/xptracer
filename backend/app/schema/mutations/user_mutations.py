@@ -2,13 +2,12 @@ import re
 import string
 
 import graphene
-from db import db
 from email_validator import EmailNotValidError, validate_email
 from flask_login import current_user, login_user, logout_user
-from models.user_model import UserModel
 from sqlalchemy import select
-
-from ..types.user_types import RegisterUserInput, User
+from app.extension import db
+from app.models.user_model import UserModel
+from app.schema.types.user_types import RegisterUserInput, User
 
 users_db = []
 
@@ -56,7 +55,8 @@ class RegisterUser(graphene.Mutation):
             RegisterUser: An object containing the result of the mutation, including the newly created user, a success flag, and a message.
         """
         from app import bcrypt
-        from db import db
+
+        # from src.dbs import db
 
         try:
             RegisterUser.__validate_username(input.username)
@@ -88,7 +88,7 @@ class RegisterUser(graphene.Mutation):
         Raises:
             ValueError: If the username is invalid.
         """
-        from db import db
+        # from backend.src.dbs import db
 
         if " " in username:
             raise ValueError("Username cannot contain spaces.")
@@ -127,7 +127,7 @@ class RegisterUser(graphene.Mutation):
         Raises:
             ValueError: If the email is invalid.
         """
-        from db import db
+        # from backend.src.dbs import db
 
         try:
             validate_email(email)
@@ -175,9 +175,11 @@ class LoginUser(graphene.Mutation):
             LoginUser: An object containing the result of the mutation, including a success flag and a message.
         """
         from app import bcrypt
+        smtm = select(UserModel).where(UserModel.username == username).limit(1)
 
-        smtm = select(UserModel).where(UserModel.username == username)
+        # user = db.session.query(UserModel).filter_by(username=username).first()
         user = db.session.execute(smtm).scalar_one_or_none()
+        # # print(user)
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
             return LoginUser(ok=True)
