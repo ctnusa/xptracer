@@ -1,16 +1,14 @@
-from dotenv import load_dotenv
-
-# load_dotenv()  # noqa: skip-imports
-
-import os
 from http import HTTPStatus
 
 from app.config import app_config
 from app.extension import db
 from app.schema import schema
+from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+
+load_dotenv()  # noqa: skip-imports
 
 bcrypt = Bcrypt()
 
@@ -67,9 +65,7 @@ def create_app(env):
         data = request.get_json()
         if "query" not in data:
             return jsonify({"error": "Missing 'query' in request"}), HTTPStatus.BAD_REQUEST
-        print("NEEEEEEEE INIT")
-        print(data["query"])
-        print(data["variables"])
+
         result = schema.execute(data["query"], variables=data.get("variables"))
         if result.errors:
             return jsonify({"errors": [str(error) for error in result.errors]}), HTTPStatus.BAD_REQUEST

@@ -5,12 +5,12 @@ from app.extension import db
 
 @pytest.fixture()
 def app():
-    app = create_app("dev")
+    app = create_app("test")
 
     with app.app_context():
         db.create_all()
         yield app
-        # db.drop_all()
+        db.drop_all()
 
     return app
 
