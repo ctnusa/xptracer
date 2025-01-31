@@ -52,6 +52,15 @@ def create_app(env):
         from models.user_model import UserModel
         return UserModel.query.get(user_id)
 
+    @app.teardown_appcontext
+    def shutdown_session(exception=None):
+        """
+        Shutdown the database session.
+
+        This function is called when the application context is destroyed, and ensures that the database session is properly closed.
+        """
+        db.session.remove()
+
     @app.route('/graphql', methods=["POST"])
     def graphql():
         """
@@ -72,9 +81,3 @@ def create_app(env):
         return jsonify(result.data), HTTPStatus.OK
 
     return app
-
-
-# if __name__ == "__main__":
-#     app = create_app(os.getenv("XPTRACER_ENV", "dev"))
-#     # app.run(debug=os.getenv("DEBUG", False))
-#     app.run(debug=True)

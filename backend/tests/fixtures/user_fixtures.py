@@ -3,8 +3,14 @@ from app import bcrypt
 from app.models.user_model import UserModel
 from app.extension import db
 
-@pytest.fixture()
+@pytest.fixture
 def create_user():
+    """
+    Fixture to create a user in the database.
+
+    Returns:
+        function: A function that creates a user with the given details.
+    """
     def _create_user(username, email, password, firstname, lastname):
         hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
         user = UserModel(
@@ -19,14 +25,26 @@ def create_user():
         return user
     return _create_user
 
-@pytest.fixture()
+@pytest.fixture
 def get_user():
+    """
+    Fixture to retrieve a user from the database by username.
+
+    Returns:
+        function: A function that retrieves a user with the given username.
+    """
     def _get_user(username):
         return db.session.query(UserModel).filter_by(username=username).first()
     return _get_user
 
-@pytest.fixture()
+@pytest.fixture
 def delete_user():
+    """
+    Fixture to delete a user from the database by username.
+
+    Returns:
+        function: A function that deletes a user with the given username.
+    """
     def _delete_user(username):
         user = db.session.query(UserModel).filter_by(username=username).first()
         db.session.delete(user)
