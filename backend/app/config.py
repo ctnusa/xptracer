@@ -8,6 +8,7 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     SECRET_KEY = os.getenv('SECRET_KEY', 'my_precious')
+    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:root@localhost:5432/dev"
 
 class TestingConfig(Config):
     TESTING = True

@@ -1,14 +1,41 @@
+// filepath: /Users/tamcn/Data/projects/xptracer/frontend/app/src/components/LoginPage.tsx
 import React, { useState } from 'react';
+import { useMutation, gql } from '@apollo/client';
+
+const LOGIN_USER = gql`
+  mutation LoginUser($username: String!, $password: String!) {
+    loginUser(username: $username, password: $password) {
+      ok
+      message
+    }
+  }
+`;
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [loginUser] = useMutation(LOGIN_USER);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Username:', username);
-    console.log('Password:', password);
+    setError(null);
+
+    try {
+      const { data } = await loginUser({ variables: { username, password } });
+      console.log("DATA NEEEEE", data)
+
+      if (data.loginUser.ok) {
+        console.log('Login successful:', data.loginUser.message);
+        // Handle successful login (e.g., redirect to another page)
+      } else {
+        setError(data.loginUser.message);
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('An error occurred during login.');
+    }
   };
 
   return (
@@ -44,6 +71,7 @@ const LoginPage: React.FC = () => {
               required
             />
           </div>
+          {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
           <div className="flex items-center justify-between">
             <button
               type="submit"

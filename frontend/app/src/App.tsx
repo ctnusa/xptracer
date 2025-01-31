@@ -1,11 +1,15 @@
 import React from 'react';
 import LoginPage from './components/LoginPage';
+import { ApolloProvider } from '@apollo/client';
+import client from './apolloClient';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <LoginPage/>
-    </div>
+    <ApolloProvider client={client}>
+      <div className='App'>
+        <LoginPage/>
+      </div>
+    </ApolloProvider>
   )
 };
 

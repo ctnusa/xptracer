@@ -7,11 +7,11 @@ from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from flask_cors import CORS
 
 load_dotenv()  # noqa: skip-imports
 
 bcrypt = Bcrypt()
-
 
 def create_app(env):
     """
@@ -31,6 +31,7 @@ def create_app(env):
 
     bcrypt.init_app(app)
     db.init_app(app)
+    CORS(app)
 
     with app.app_context():
         db.create_all()
