@@ -6,12 +6,13 @@ from app.schema import schema
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 from flask_bcrypt import Bcrypt
-from flask_login import LoginManager
 from flask_cors import CORS
+from flask_login import LoginManager
 
 load_dotenv()  # noqa: skip-imports
 
 bcrypt = Bcrypt()
+
 
 def create_app(env):
     """
@@ -79,6 +80,6 @@ def create_app(env):
         result = schema.execute(data["query"], variables=data.get("variables"))
         if result.errors:
             return jsonify({"errors": [str(error) for error in result.errors]}), HTTPStatus.BAD_REQUEST
-        return jsonify(result.data), HTTPStatus.OK
+        return jsonify({'data': result.data}), HTTPStatus.OK
 
     return app

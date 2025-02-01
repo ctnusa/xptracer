@@ -6,7 +6,7 @@ import client from './apolloClient';
 const App: React.FC = () => {
   return (
     <ApolloProvider client={client}>
-      <div className='App'>
+      <div className='dApp'>
         <LoginPage/>
       </div>
     </ApolloProvider>

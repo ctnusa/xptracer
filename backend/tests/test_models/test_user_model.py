@@ -2,16 +2,25 @@ from app import bcrypt
 from app.extension import db
 from app.models.user_model import UserModel
 from flask import Flask
-from sqlalchemy import select
+import pytest
 
 
 def test_create_user(app: Flask, create_user):
+    """
+    Test case for creating a user in the database.
+
+    Args:
+        app (Flask): The Flask application instance.
+        create_user (function): Fixture to create a user in the database.
+
+    Asserts:
+        The user was created and retrieved successfully from the database.
+    """
     # Create a test user
     create_user('testuser', 'test@example.com', 'testpassword', 'Test', 'User')
 
     # Retrieve the user from the database
-    retrieved_user = db.session.query(
-        UserModel).filter_by(username='testuser').first()
+    retrieved_user = db.session.query(UserModel).filter_by(username='testuser').first()
 
     # Check that the user was retrieved successfully
     assert retrieved_user is not None
@@ -24,22 +33,51 @@ def test_create_user(app: Flask, create_user):
 
 
 def test_update_user(app: Flask, create_user, get_user):
+    """
+    Test case for updating a user's email in the database.
+
+    Args:
+        app (Flask): The Flask application instance.
+        create_user (function): Fixture to create a user in the database.
+        get_user (function): Fixture to retrieve a user from the database.
+
+    Asserts:
+        The user's email was updated successfully in the database.
+    """
+    # Create a test user
     create_user('testuser', 'test@example.com', 'testpassword', 'Test', 'User')
-    retrieved_user = get_user('testuser')
+
+    # Retrieve the user from the database
+    user = get_user('testuser')
 
     # Update the user's email
-    retrieved_user.email = 'newemail@example.com'
+    user.email = 'newemail@example.com'
     db.session.commit()
 
     # Retrieve the updated user from the database
-    retrieved_user = get_user('testuser')
+    updated_user = get_user('testuser')
 
     # Check that the user's email was updated successfully
-    assert retrieved_user.email == 'newemail@example.com'
+    assert updated_user.email == 'newemail@example.com'
 
 
 def test_delete_user(app: Flask, create_user, get_user, delete_user):
+    """
+    Test case for deleting a user from the database.
+
+    Args:
+        app (Flask): The Flask application instance.
+        create_user (function): Fixture to create a user in the database.
+        get_user (function): Fixture to retrieve a user from the database.
+        delete_user (function): Fixture to delete a user from the database.
+
+    Asserts:
+        The user was deleted successfully from the database.
+    """
+    # Create a test user
     create_user('testuser', 'test@example.com', 'testpassword', 'Test', 'User')
+
+    # Delete the user from the database
     delete_user('testuser')
 
     # Try to retrieve the deleted user from the database
@@ -49,21 +87,28 @@ def test_delete_user(app: Flask, create_user, get_user, delete_user):
     assert deleted_user is None
 
 
-def test_query_users(app: Flask):
+def test_query_users(app: Flask, create_user):
+    """
+    Test case for querying multiple users from the database.
+
+    Args:
+        app (Flask): The Flask application instance.
+        create_user (function): Fixture to create a user in the database.
+
+    Asserts:
+        All users were retrieved successfully from the database.
+    """
     # Create multiple test users
     users = [
-        UserModel(username='user1', email='user1@example.com', password=bcrypt.generate_password_hash(
-            "password1").decode("utf-8"), firstname='User', lastname='One'),
-        UserModel(username='user2', email='user2@example.com', password=bcrypt.generate_password_hash(
-            "password2").decode("utf-8"), firstname='User', lastname='Two'),
-        UserModel(username='user3', email='user3@example.com', password=bcrypt.generate_password_hash(
-            "password3").decode("utf-8"), firstname='User', lastname='Three')
+        ('user1', 'user1@example.com', 'password1', 'User', 'One'),
+        ('user2', 'user2@example.com', 'password2', 'User', 'Two'),
+        ('user3', 'user3@example.com', 'password3', 'User', 'Three')
     ]
-    db.session.bulk_save_objects(users)
-    db.session.commit()
+    for username, email, password, firstname, lastname in users:
+        create_user(username, email, password, firstname, lastname)
 
     # Query all users from the database
-    all_users = db.session.execute(select(UserModel)).scalars().all()
+    all_users = db.session.query(UserModel).all()
 
     # Check that all users were retrieved successfully
     assert len(all_users) == 3

@@ -1,21 +1,19 @@
-// filepath: /Users/tamcn/Data/projects/xptracer/frontend/app/src/components/LoginPage.tsx
 import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
+
 
 const LOGIN_USER = gql`
   mutation LoginUser($username: String!, $password: String!) {
     loginUser(username: $username, password: $password) {
       ok
-      message
     }
   }
 `;
 
 const LoginPage: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('tamcn2603');
+  const [password, setPassword] = useState('@tamCn2222');
   const [error, setError] = useState<string | null>(null);
-
   const [loginUser] = useMutation(LOGIN_USER);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -23,14 +21,14 @@ const LoginPage: React.FC = () => {
     setError(null);
 
     try {
-      const { data } = await loginUser({ variables: { username, password } });
-      console.log("DATA NEEEEE", data)
+      const { data } = await loginUser({ 
+        variables: { username: username, password: password} 
+      });
 
       if (data.loginUser.ok) {
-        console.log('Login successful:', data.loginUser.message);
-        // Handle successful login (e.g., redirect to another page)
+        console.log('Login successful');
       } else {
-        setError(data.loginUser.message);
+        setError('Login failed');
       }
     } catch (err) {
       console.error('Login error:', err);
