@@ -1,34 +1,22 @@
 import React, { useState } from 'react';
-import { useMutation, gql } from '@apollo/client';
-
-
-const LOGIN_USER = gql`
-  mutation LoginUser($username: String!, $password: String!) {
-    loginUser(username: $username, password: $password) {
-      ok
-    }
-  }
-`;
+import { useLoginUserMutation } from '../graphql/generated';
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('tamcn2603');
   const [password, setPassword] = useState('@tamCn2222');
   const [error, setError] = useState<string | null>(null);
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [loginUser] = useLoginUserMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
     try {
-      const { data } = await loginUser({ 
-        variables: { username: username, password: password} 
-      });
-
-      if (data.loginUser.ok) {
-        console.log('Login successful');
+      const { data } = await loginUser({ variables: { username, password } });
+      if (data?.loginUser?.ok) {
+        console.log("Login successful")
       } else {
-        setError('Login failed');
+        console.log("Login failed")
       }
     } catch (err) {
       console.error('Login error:', err);
