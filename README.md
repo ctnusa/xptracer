@@ -44,7 +44,7 @@ XPTracer is a web application designed to track and manage user expense. It incl
 
 6. Run the application:
    ```sh
-   flask run
+   python run.py
    ```
    
 ### Frontend
@@ -60,7 +60,7 @@ XPTracer is a web application designed to track and manage user expense. It incl
    
 3. Run the application:
    ```sh
-   yarn start
+   yarn run dev
    ```
 
 ## Running Tests
@@ -122,7 +122,7 @@ XPTracer is a web application designed to track and manage user expense. It incl
    ```
 
 ## GraphQL Code Generation (<code>config.py</code>)
-   To generate TypeScript types and hooks for your GraphQL operations, use the following command:
+   To generate TypeScript types and hooks for your GraphQL operations, start the backend first and then use the following command:
    ```sh
    yarn graphql-codegen
    ```
@@ -130,7 +130,7 @@ XPTracer is a web application designed to track and manage user expense. It incl
 ### Example Codegen Configuration (<code>codegen.yml</code>)
    ```yml
    overwrite: true
-   schema: "http://localhost:5000/graphql"
+   schema: "http://127.0.0.1:5000/graphql"
    documents: "src/graphql/**/*.graphql"
    generates:
       src/graphql/generated.ts:
