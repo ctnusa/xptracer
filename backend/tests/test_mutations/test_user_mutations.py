@@ -45,7 +45,7 @@ def test_login_user_success(app: Flask, client: Any):
     })
 
     # Parse the response data
-    result = response.get_json()
+    result = response.get_json()['data']
 
     # Assert the response
     assert result['loginUser']['ok'] == True
@@ -83,7 +83,7 @@ def test_login_user_invalid_password(client):
     })
 
     # Parse the response data
-    result = response.get_json()
+    result = response.get_json()['data']
 
     # Assert the response
     assert result['loginUser']['ok'] == False
@@ -115,7 +115,7 @@ def test_logout_user(client):
     })
 
     # Parse the response data
-    result = response.get_json()
+    result = response.get_json()['data']
 
     # Assert the response
     assert result['logoutUser']['ok'] == True
