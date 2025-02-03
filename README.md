@@ -40,6 +40,8 @@ XPTracer is a web application designed to track and manage user expense. It incl
    ```
 
 5. Set up the environment variables:
+   Create a .env in the backend directory and edit the variables: <code>XPTRACER_ENV</code>, <code>SECRET_KEY</code>, <code>SQLALCHEMY_DATABASE_URI</code>
+
 6. Run the application:
    ```sh
    flask run
