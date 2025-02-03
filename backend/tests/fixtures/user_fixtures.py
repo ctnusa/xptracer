@@ -1,7 +1,7 @@
 import pytest
-from app import bcrypt
-from app.models.user_model import UserModel
-from app.extension import db
+from src import bcrypt
+from src.models.user_model import UserModel
+from src.extension import db
 
 @pytest.fixture
 def create_user():

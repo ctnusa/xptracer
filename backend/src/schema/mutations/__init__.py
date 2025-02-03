@@ -1,5 +1,5 @@
 import graphene
-from app.schema.mutations.user_mutations import LoginUser, LogoutUser, RegisterUser
+from src.schema.mutations.user_mutations import LoginUser, LogoutUser, RegisterUser
 
 # Define the Mutation class which will hold all the mutation fields
 class Mutation(graphene.ObjectType):

@@ -5,9 +5,9 @@ import graphene
 from email_validator import EmailNotValidError, validate_email
 from flask_login import current_user, login_user, logout_user
 from sqlalchemy import select
-from app.extension import db
-from app.models.user_model import UserModel
-from app.schema.types.user_types import RegisterUserInput, User
+from src.extension import db
+from src.models.user_model import UserModel
+from src.schema.types.user_types import RegisterUserInput, User
 
 users_db = []
 
@@ -54,7 +54,7 @@ class RegisterUser(graphene.Mutation):
         Returns:
             RegisterUser: An object containing the result of the mutation, including the newly created user, a success flag, and a message.
         """
-        from app import bcrypt
+        from src import bcrypt
 
         # from src.dbs import db
 
@@ -174,7 +174,7 @@ class LoginUser(graphene.Mutation):
         Returns:
             LoginUser: An object containing the result of the mutation, including a success flag and a message.
         """
-        from app import bcrypt
+        from src import bcrypt
         smtm = select(UserModel).where(UserModel.username == username).limit(1)
 
         # user = db.session.query(UserModel).filter_by(username=username).first()

@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean, Column, Integer, String
-from app.extension import db
+from src.extension import db
 
 Base = db.Model
 

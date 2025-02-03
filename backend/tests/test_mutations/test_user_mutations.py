@@ -1,8 +1,8 @@
 from typing import Any
 
-from app import bcrypt
-from app.extension import db
-from app.models.user_model import UserModel
+from src import bcrypt
+from src.extension import db
+from src.models.user_model import UserModel
 from flask import Flask
 
 

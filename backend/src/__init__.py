@@ -1,8 +1,8 @@
 from http import HTTPStatus
 
-from app.config import app_config
-from app.extension import db
-from app.schema import schema
+from src.config import app_config
+from src.extension import db
+from src.schema import schema
 from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 from flask_bcrypt import Bcrypt

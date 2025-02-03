@@ -1,6 +1,6 @@
 import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType
-from app.models.user_model import UserModel
+from src.models.user_model import UserModel
 
 
 class RegisterUserInput(graphene.InputObjectType):
