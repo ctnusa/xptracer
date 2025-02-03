@@ -118,3 +118,29 @@ XPTracer is a web application designed to track and manage user expense. It incl
        "prod": ProductionConfig
    }
    ```
+
+## GraphQL Code Generation (<code>config.py</code>)
+   To generate TypeScript types and hooks for your GraphQL operations, use the following command:
+   ```sh
+   yarn graphql-codegen
+   ```
+
+### Example Codegen Configuration (<code>codegen.yml</code>)
+   ```yml
+   overwrite: true
+   schema: "http://localhost:5000/graphql"
+   documents: "src/graphql/**/*.graphql"
+   generates:
+      src/graphql/generated.ts:
+      plugins:
+         - "typescript"
+         - "typescript-operations"
+         - "typescript-react-apollo"
+      config:
+         withHooks: true
+   ```
+
+### License
+   Specify the license under which the project is distributed.
+    
+   This `README.md` file provides a comprehensive overview of your project, including installation instructions, running tests, configuration details, and more. Adjust the content as needed to fit your specific project requirements.
