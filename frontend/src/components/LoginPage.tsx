@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useLoginUserMutation } from '../graphql/generated';
 
 const LoginPage: React.FC = () => {
-  const [username, setUsername] = useState('tamcn2603');
-  const [password, setPassword] = useState('@tamCn2222');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loginUser] = useLoginUserMutation();
 

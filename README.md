@@ -81,7 +81,7 @@ XPTracer is a web application designed to track and manage user expense. It incl
    cd frontend
    ```
 
-2. Run the unit tests:
+2. Run the e2e tests: (start the backend and frontend first, then run the following command)
    ```sh
    yarn test
    ```
