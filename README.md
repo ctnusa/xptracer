@@ -86,11 +86,6 @@ XPTracer is a web application designed to track and manage user expense. It incl
    yarn test
    ```
 
-3. Run the unit tests:
-   ```sh
-    yarn test:e2e
-    ```
-
 ## Installation
    Configuration settings are managed in the config.py file. Environment-specific settings are defined in the <code>DevelopmentConfig</code>, <code>TestingConfig</code>, and <code>ProductionConfig</code> classes.
 
