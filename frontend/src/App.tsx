@@ -6,6 +6,7 @@ import HomePage from "./components/HomePage";
 import LoginPage from "./components/LoginPage";
 import NotFoundPage from "./components/NotFoundPage";
 import ProtectedRoutes from "./components/ProtectedRoute";
+import RegisterPage from "./components/RegisterPage";
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
           <Route element={<ProtectedRoutes/>}>
             <Route path="/" element={<HomePage/>} />
           </Route>
+          <Route path="/register" element={<RegisterPage/>} />
           <Route path="/login" element={<LoginPage/>} />
           <Route path="*" element={<NotFoundPage/>} />
         </Routes>

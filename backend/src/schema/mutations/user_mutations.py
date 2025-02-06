@@ -1,13 +1,16 @@
+import datetime
 import re
 import string
 
 import graphene
+import jwt
 from email_validator import EmailNotValidError, validate_email
 from flask_login import current_user, login_user, logout_user
 from sqlalchemy import select
 from src.extension import db
 from src.models.user_model import UserModel
 from src.schema.types.user_types import RegisterUserInput, User
+from flask import current_app
 
 users_db = []
 
@@ -159,6 +162,7 @@ class LoginUser(graphene.Mutation):
         password = graphene.String(required=True)
 
     ok = graphene.Boolean()
+    token = graphene.String()
     message = graphene.String()
 
     def mutate(root, info, username, password):
@@ -175,14 +179,15 @@ class LoginUser(graphene.Mutation):
             LoginUser: An object containing the result of the mutation, including a success flag and a message.
         """
         from src import bcrypt
-        smtm = select(UserModel).where(UserModel.username == username).limit(1)
 
-        # user = db.session.query(UserModel).filter_by(username=username).first()
-        user = db.session.execute(smtm).scalar_one_or_none()
-        # # print(user)
+        user = db.session.query(UserModel).filter_by(username=username).first()
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
-            return LoginUser(ok=True)
+            token = jwt.encode({
+                "user_id": user.id,
+                "exp": datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=10)
+            }, current_app.config["SECRET_KEY"], algorithm="HS256")
+            return LoginUser(ok=True, token=token)
         return LoginUser(ok=False, message="Invalid username or password.")
 
 
