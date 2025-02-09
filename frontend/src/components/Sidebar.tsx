@@ -9,7 +9,7 @@ import {
   Icon,
   SignOut,
 } from "@phosphor-icons/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLogoutUserMutation } from "../graphql/generated";
 
@@ -44,6 +44,11 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [openItem, setOpenItem] = useState<string | null>(null);
+  const [contextMenu, setContextMenu] = useState<{
+    x: number;
+    y: number;
+    subItems: MenuItem[];
+  } | null>(null);
   const [logout] = useLogoutUserMutation();
   const navigate = useNavigate();
 
@@ -61,6 +66,33 @@ const Sidebar = () => {
     }
   };
 
+  const handleItemClick = (event: React.MouseEvent, item: MenuItem) => {
+    if (isOpen) {
+      setOpenItem(openItem === item.name ? null : item.name)
+    } else if (item.subItems) {
+      const menuItemRect = event.currentTarget.getBoundingClientRect();
+      setContextMenu({
+        x: 42,
+        y: menuItemRect.top,
+        subItems: item.subItems,
+      });
+    } else if (item.path) {
+      //TODO: add path here
+      // navigate(item.path);
+    }
+  };
+
+  const handleSubItemClick = (path: string) => {
+    setActiveItem(path);
+    // TODO: add path here
+    // navigate(path);
+    setContextMenu(null);
+  };
+
+  useEffect(() => {
+    setActiveItem('/')
+  }, []);
+
   const expandedView = (
     <>
       {/* Logo section */}
@@ -68,7 +100,7 @@ const Sidebar = () => {
         <img src="/vite.svg" alt="Logo" className="w-10" />
         <span className="text-lg">Xptracer</span>
         <button
-          className="flex ml-auto text-gray-400 hover:text-white"
+          className="flex ml-auto text-gray-400 hover:text-white cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
         >
           <CaretDoubleLeft size={20} weight="duotone" />
@@ -93,7 +125,7 @@ const Sidebar = () => {
                 <div className="">
                   <button
                     className={
-                      "flex gap-2 w-full p-1.5 hover:bg-gray-700 rounded-md"
+                      "flex gap-2 w-full p-1.5 hover:bg-gray-700 rounded-md cursor-pointer"
                     }
                     onClick={() =>
                       setOpenItem(openItem === item.name ? null : item.name)
@@ -118,7 +150,7 @@ const Sidebar = () => {
                       {item.subItems.map((subItem) => (
                         <button
                           key={subItem.name}
-                          className={`flex gap-2 hover:bg-gray-700 rounded-md p-1.5 ${
+                          className={`flex gap-2 hover:bg-gray-700 rounded-md p-1.5 cursor-pointer ${
                             activeItem === subItem.path ? "bg-gray-700" : ""
                           }`}
                           onClick={() => setActiveItem(subItem.path!!)}
@@ -134,7 +166,7 @@ const Sidebar = () => {
                 </div>
               ) : (
                 <button
-                  className={`flex gap-2 hover:bg-gray-700 rounded-md w-full p-1.5 ${
+                  className={`flex gap-2 hover:bg-gray-700 rounded-md w-full p-1.5 cursor-pointer ${
                     activeItem === item.path ? "bg-gray-700" : ""
                   }`}
                   onClick={() => setActiveItem(item.path!!)}
@@ -153,7 +185,7 @@ const Sidebar = () => {
         <p className="uppercase font-bold">Account</p>
         <div className="flex flex-col gap-1.5">
           <button
-            className={`flex gap-2 p-1.5 rounded-md hover:bg-gray-700 ${
+            className={`flex gap-2 p-1.5 rounded-md hover:bg-gray-700 cursor-pointer ${
               activeItem === "/settings" ? "bg-gray-500" : ""
             }`}
             onClick={() => setActiveItem("/settings")}
@@ -162,7 +194,7 @@ const Sidebar = () => {
             <span>Settings</span>
           </button>
           <button
-            className="flex gap-2 p-1.5 rounded-md hover:bg-gray-700"
+            className="flex gap-2 p-1.5 rounded-md cursor-pointer hover:bg-gray-700"
             onClick={() => handleLogout()}
           >
             <SignOut size={20} />
@@ -179,7 +211,7 @@ const Sidebar = () => {
       <div className="flex flex-col justify-between items-center gap-2 h-12">
         <img src="/vite.svg" alt="Logo" className="w-10" />
         <button
-          className="text-gray-400 hover:text-white"
+          className="text-gray-400 hover:text-white cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
         >
           <CaretDoubleRight size={20} weight="duotone" />
@@ -199,14 +231,14 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="flex flex-col relative">
-        <div className="flex flex-col gap-2 ">
+        <div className="flex flex-col">
           {menuItems.map((item) => (
             <div key={item.name} className="">
               <button
-                className={`flex gap-2 p-2 hover:bg-gray-700 rounded-md ${
+                className={`flex gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer ${
                   activeItem === item.path ? "bg-gray-700" : ""
                 }`}
-                onClick={() => setActiveItem(item.path!!)}
+                onClick={(event) => handleItemClick(event, item)}
               >
                 <item.icon size={20} />
               </button>
@@ -219,19 +251,34 @@ const Sidebar = () => {
       <div className="flex flex-col relative mt-auto bottom-2 gap-2">
         <div className="flex flex-col">
           <button
-            className="p-1.5 rounded-md hover:bg-gray-700"
+            className="p-1.5 rounded-md hover:bg-gray-700 cursor-pointer"
             onClick={() => {}}
           >
             <Gear size={20} />
           </button>
           <button
-            className="p-1.5 rounded-md hover:bg-gray-700"
+            className="p-1.5 rounded-md hover:bg-gray-700 cursor-pointer"
             onClick={() => handleLogout()}
           >
             <SignOut size={20} />
           </button>
         </div>
       </div>
+
+      {contextMenu && (
+        <div className="absolute bg-gray-800 text-white rounded-md shadow-lg p-2" style={{ top: contextMenu.y, left: contextMenu.x }}>
+          {contextMenu.subItems.map((subItem) => (
+            <button
+              key={subItem.name}
+              className={`flex gap-2 hover:bg-gray-700 rounded-md p-1.5 w-full cursor-pointer ${activeItem === subItem.path ? "bg-gray-700" : ""}`}
+              onClick={() => handleSubItemClick(subItem.path!!)}
+            >
+              <subItem.icon size={20} />
+              <span>{subItem.name}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </>
   );
 
