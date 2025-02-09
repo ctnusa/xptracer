@@ -1,118 +1,17 @@
-// import { useState } from "react";
-// import {
-//   House,
-//   Gear,
-//   Folder,
-//   CaretDown,
-//   CaretUp,
-//   SignOut,
-//   List,
-// } from "@phosphor-icons/react";
-
-// const menuItems = [
-//   { name: "Dashboard", icon: House, path: "/" },
-//   {
-//     name: "Projects",
-//     icon: Folder,
-//     subItems: [
-//       { name: "Web App", path: "/projects/web" },
-//       { name: "Mobile App", path: "/projects/mobile" },
-//     ],
-//   },
-//   { name: "Settings", icon: Gear, path: "/settings" },
-// ];
-
-// const Sidebar = () => {
-//   const [isOpen, setIsOpen] = useState(true);
-//   const [activeItem, setActiveItem] = useState<string | null>(null);
-//   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
-
-//   return (
-//     <div className={`h-screen flex ${isOpen ? "w-64" : "w-20"} transition-all duration-300`}>
-//       <div className="bg-gray-900 text-white w-full flex flex-col p-4">
-
-//         {/* Toggle Button */}
-//         <button
-//           onClick={() => setIsOpen(!isOpen)}
-//           className="mb-4 flex items-center gap-2 text-gray-300 hover:text-white"
-//         >
-//           <List size={24} />
-//           {isOpen && <span>Menu</span>}
-//         </button>
-
-//         {/* Menu Items */}
-//         <nav className="flex flex-col space-y-2">
-//           {menuItems.map((item) => (
-//             <div key={item.name}>
-//               {item.subItems ? (
-//                 <div>
-//                   <button
-//                     onClick={() => setOpenSubmenu(openSubmenu === item.name ? null : item.name)}
-//                     className="flex items-center gap-3 p-3 rounded-md hover:bg-gray-700 w-full"
-//                   >
-//                     <item.icon size={24} />
-//                     {isOpen && <span>{item.name}</span>}
-//                     {isOpen && (openSubmenu === item.name ? <CaretUp size={16} /> : <CaretDown size={16} />)}
-//                   </button>
-
-//                   {/* Submenu Items */}
-//                   {openSubmenu === item.name && (
-//                     <div className="ml-6 flex flex-col space-y-1">
-//                       {item.subItems.map((sub) => (
-//                         <button
-//                           key={sub.name}
-//                           onClick={() => setActiveItem(sub.path)}
-//                           className={`flex items-center p-2 rounded-md text-gray-300 hover:bg-gray-700 ${
-//                             activeItem === sub.path ? "bg-gray-700" : ""
-//                           }`}
-//                         >
-//                           {isOpen && <span>{sub.name}</span>}
-//                         </button>
-//                       ))}
-//                     </div>
-//                   )}
-//                 </div>
-//               ) : (
-//                 <button
-//                   onClick={() => setActiveItem(item.path)}
-//                   className={`flex items-center gap-3 p-3 rounded-md hover:bg-gray-700 ${
-//                     activeItem === item.path ? "bg-gray-700" : ""
-//                   }`}
-//                 >
-//                   <item.icon size={24} />
-//                   {isOpen && <span>{item.name}</span>}
-//                 </button>
-//               )}
-//             </div>
-//           ))}
-//         </nav>
-
-//         {/* Logout */}
-//         <button className="mt-auto flex items-center gap-3 p-3 rounded-md text-red-400 hover:bg-red-800">
-//           <SignOut size={24} />
-//           {isOpen && <span>Logout</span>}
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Sidebar;
-
 import {
-  House,
   CaretDoubleLeft,
   CaretDoubleRight,
   CaretDown,
   CaretUp,
-  SignOut,
-  Gear,
-  Icon,
   ChartLine,
+  Gear,
+  House,
+  Icon,
+  SignOut,
 } from "@phosphor-icons/react";
 import { useState } from "react";
-import { useLogoutUserMutation } from "../graphql/generated";
 import { useNavigate } from "react-router-dom";
+import { useLogoutUserMutation } from "../graphql/generated";
 
 interface MenuItem {
   name: string;
@@ -126,18 +25,17 @@ const menuItems: MenuItem[] = [
     name: "Income",
     icon: House,
     subItems: [
-      { name: "Income", icon: ChartLine, path: "/income" },
-      { name: "Analytics", icon: House, path: "/analytics" },
+      { name: "Income", icon: ChartLine, path: "/a" },
+      { name: "Analytics", icon: House, path: "/b" },
     ],
   },
   { name: "Notification", icon: House, path: "/goal" },
   {
     name: "Analytics",
     icon: ChartLine,
-    path: "/goal",
     subItems: [
-      { name: "Income", icon: ChartLine, path: "/income" },
-      { name: "Analytics", icon: House, path: "/analytics" },
+      { name: "Income", icon: ChartLine, path: "/c" },
+      { name: "Analytics", icon: House, path: "/d" },
     ],
   },
 ];
@@ -163,124 +61,187 @@ const Sidebar = () => {
     }
   };
 
-  return (
-    <div
-      className={`flex flex-col ${
-        isOpen ? "w-50" : "w-12 items-center"
-      } bg-gray-800 text-white text-sm px-3 py-3 gap-4 h-screen transition-transform duration-700`}
-    >
-      {isOpen ? (
-        <div className="flex justify-between items-center gap-1 h-12">
-          <img src="/vite.svg" alt="Logo" className="w-10" />
-          <span className="text-lg">Xptracer</span>
-          <button className="flex ml-auto" onClick={() => setIsOpen(!isOpen)}>
-            <CaretDoubleLeft size={20} weight="duotone" />
+  const expandedView = (
+    <>
+      {/* Logo section */}
+      <div className="flex justify-center items-center gap-1 h-12">
+        <img src="/vite.svg" alt="Logo" className="w-10" />
+        <span className="text-lg">Xptracer</span>
+        <button
+          className="flex ml-auto text-gray-400 hover:text-white"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <CaretDoubleLeft size={20} weight="duotone" />
+        </button>
+      </div>
+
+      <hr className="border-gray-600 border-solid border-0.5" />
+
+      {/* Overview section */}
+      <div className="flex flex-col">
+        <div
+          className={`uppercase font-bold mb-4 p-1 ${
+            isOpen ? "visible" : "invisible"
+          }`}
+        >
+          Overview
+        </div>
+        <div className="flex flex-col gap-2">
+          {menuItems.map((item) => (
+            <div key={item.name} className="">
+              {item.subItems ? (
+                <div className="">
+                  <button
+                    className={
+                      "flex gap-2 w-full p-1.5 hover:bg-gray-700 rounded-md"
+                    }
+                    onClick={() =>
+                      setOpenItem(openItem === item.name ? null : item.name)
+                    }
+                  >
+                    <item.icon size={20} />
+                    <span>{item.name}</span>
+
+                    {openItem !== item.name ? (
+                      <CaretDown
+                        className="ml-auto"
+                        size={20}
+                        weight="duotone"
+                      />
+                    ) : (
+                      <CaretUp className="ml-auto" size={20} weight="duotone" />
+                    )}
+                  </button>
+
+                  {openItem === item.name ? (
+                    <div className="flex flex-col ml-6 pt-1 space-y-1">
+                      {item.subItems.map((subItem) => (
+                        <button
+                          key={subItem.name}
+                          className={`flex gap-2 hover:bg-gray-700 rounded-md p-1.5 ${
+                            activeItem === subItem.path ? "bg-gray-700" : ""
+                          }`}
+                          onClick={() => setActiveItem(subItem.path!!)}
+                        >
+                          <subItem.icon size={20} />
+                          <span>{subItem.name}</span>
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
+              ) : (
+                <button
+                  className={`flex gap-2 hover:bg-gray-700 rounded-md w-full p-1.5 ${
+                    activeItem === item.path ? "bg-gray-700" : ""
+                  }`}
+                  onClick={() => setActiveItem(item.path!!)}
+                >
+                  <item.icon size={20} />
+                  <span>{item.name}</span>
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Account section fixed the bottom */}
+      <div className="flex flex-col mt-auto relative bottom-2 gap-1.5">
+        <p className="uppercase font-bold">Account</p>
+        <div className="flex flex-col gap-1.5">
+          <button
+            className={`flex gap-2 p-1.5 rounded-md hover:bg-gray-700 ${
+              activeItem === "/settings" ? "bg-gray-500" : ""
+            }`}
+            onClick={() => setActiveItem("/settings")}
+          >
+            <Gear size={20} />
+            <span>Settings</span>
+          </button>
+          <button
+            className="flex gap-2 p-1.5 rounded-md hover:bg-gray-700"
+            onClick={() => handleLogout()}
+          >
+            <SignOut size={20} />
+            <span>Log out</span>
           </button>
         </div>
-      ) : (
+      </div>
+    </>
+  );
+
+  const collapsedView = (
+    <>
+      {/* Logo section */}
+      <div className="flex flex-col justify-between items-center gap-2 h-12">
+        <img src="/vite.svg" alt="Logo" className="w-10" />
         <button
-          className="flex justify-center items-center gap-1 h-12"
+          className="text-gray-400 hover:text-white"
           onClick={() => setIsOpen(!isOpen)}
         >
           <CaretDoubleRight size={20} weight="duotone" />
         </button>
-      )}
+      </div>
 
-      <hr className="border-gray-600 border-solid border-0.5" />
+      <hr className="border-gray-600 border-solid border-0.5 w-full" />
 
-      {isOpen ? (
-        <div className="flex flex-col">
-          <p className="uppercase font-bold mb-4">Overview</p>
-          <div className="flex flex-col gap-4 ">
-            {menuItems.map((item) => (
-              <div key={item.name} className="">
-                {item.subItems ? (
-                  <div className="">
-                    <button
-                      className="flex gap-2 w-full p-2"
-                      onClick={() =>
-                        setOpenItem(openItem === item.name ? null : item.name)
-                      }
-                    >
-                      <item.icon size={20} />
-                      <span>{item.name}</span>
-
-                      {openItem !== item.name ? (
-                        <CaretDown
-                          className="ml-auto"
-                          size={20}
-                          weight="duotone"
-                        />
-                      ) : (
-                        <CaretUp
-                          className="ml-auto"
-                          size={20}
-                          weight="duotone"
-                        />
-                      )}
-                    </button>
-
-                    {openItem === item.name ? (
-                      <div className="flex flex-col ml-6 pt-1 space-y-1">
-                        {item.subItems.map((subItem) => (
-                          <button className="flex gap-2 hover:bg-gray-700 rounded-md p-1.5">
-                            <subItem.icon size={20} />
-                            <span>{subItem.name}</span>
-                          </button>
-                        ))}
-                      </div>
-                    ) : (
-                      <div></div>
-                    )}
-                  </div>
-                ) : (
-                  <button className="flex gap-2">
-                    <item.icon size={20} />
-                    <span>{item.name}</span>
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
+      {/* Overview section */}
+      <div className="flex flex-col absolute top-25">
+        <div
+          className={`uppercase font-bold mb-4 ${
+            isOpen ? "visible" : "invisible"
+          }`}
+        >
+          Overview
         </div>
-      ) : (
-        <div className="flex flex-col gap-4 mb-6">
-          <div className="flex flex-col gap-4">
-            {menuItems.map((item) => (
-              <button>
+      </div>
+      <div className="flex flex-col relative">
+        <div className="flex flex-col gap-2 ">
+          {menuItems.map((item) => (
+            <div key={item.name} className="">
+              <button
+                className={`flex gap-2 p-2 hover:bg-gray-700 rounded-md ${
+                  activeItem === item.path ? "bg-gray-700" : ""
+                }`}
+                onClick={() => setActiveItem(item.path!!)}
+              >
                 <item.icon size={20} />
               </button>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
 
-      {isOpen ? (
-        <div className="flex flex-col mt-auto gap-4 mb-6">
-          <p className="uppercase font-bold">Account</p>
-          <div className="flex flex-col gap-4">
-            <button className="flex gap-2" onClick={() => {}}>
-              <Gear size={20} />
-              <span>Settings</span>
-            </button>
-            <button className="flex gap-2" onClick={() => handleLogout()}>
-              <SignOut size={20} />
-              <span>Log out</span>
-            </button>
-          </div>
+      {/* Account section fixed the bottom */}
+      <div className="flex flex-col relative mt-auto bottom-2 gap-2">
+        <div className="flex flex-col">
+          <button
+            className="p-1.5 rounded-md hover:bg-gray-700"
+            onClick={() => {}}
+          >
+            <Gear size={20} />
+          </button>
+          <button
+            className="p-1.5 rounded-md hover:bg-gray-700"
+            onClick={() => handleLogout()}
+          >
+            <SignOut size={20} />
+          </button>
         </div>
-      ) : (
-        <div className="flex flex-col mt-auto gap-4 mb-6">
-          <div className="flex flex-col gap-4">
-            <button onClick={() => {}}>
-              <Gear size={20} />
-            </button>
-            <button onClick={() => handleLogout()}>
-              <SignOut size={20} />
-            </button>
-          </div>
-        </div>
-      )}
+      </div>
+    </>
+  );
+
+  return (
+    <div
+      className={`flex flex-col ${
+        isOpen ? "w-50" : "w-12 items-center"
+      } bg-gray-800 text-white text-sm px-3 py-3 gap-5 h-screen transition-all duration-700`}
+    >
+      {isOpen ? expandedView : collapsedView}
     </div>
   );
 };
