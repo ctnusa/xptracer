@@ -116,7 +116,7 @@ const Sidebar = () => {
             isOpen ? "visible" : "invisible"
           }`}
         >
-          Overview
+          Main Menu
         </div>
         <div className="flex flex-col gap-2">
           {menuItems.map((item) => (
@@ -125,7 +125,7 @@ const Sidebar = () => {
                 <div className="">
                   <button
                     className={
-                      "flex gap-2 w-full p-1.5 hover:bg-gray-700 rounded-md cursor-pointer"
+                      "flex gap-2 w-full p-1.5 hover:bg-[#EDF6F7] rounded-md cursor-pointer"
                     }
                     onClick={() =>
                       setOpenItem(openItem === item.name ? null : item.name)
@@ -150,8 +150,8 @@ const Sidebar = () => {
                       {item.subItems.map((subItem) => (
                         <button
                           key={subItem.name}
-                          className={`flex gap-2 hover:bg-gray-700 rounded-md p-1.5 cursor-pointer ${
-                            activeItem === subItem.path ? "bg-gray-700" : ""
+                          className={`flex gap-2 hover:bg-[#EDF6F7] rounded-md p-1.5 cursor-pointer ${
+                            activeItem === subItem.path ? "hover:bg-[#EDF6F7]" : ""
                           }`}
                           onClick={() => setActiveItem(subItem.path!!)}
                         >
@@ -166,8 +166,8 @@ const Sidebar = () => {
                 </div>
               ) : (
                 <button
-                  className={`flex gap-2 hover:bg-gray-700 rounded-md w-full p-1.5 cursor-pointer ${
-                    activeItem === item.path ? "bg-gray-700" : ""
+                  className={`flex gap-2 hover:bg-[#EDF6F7] rounded-md w-full p-1.5 cursor-pointer ${
+                    activeItem === item.path ? "bg-[#EDF6F7]" : ""
                   }`}
                   onClick={() => setActiveItem(item.path!!)}
                 >
@@ -185,8 +185,8 @@ const Sidebar = () => {
         <p className="uppercase font-bold">Account</p>
         <div className="flex flex-col gap-1.5">
           <button
-            className={`flex gap-2 p-1.5 rounded-md hover:bg-gray-700 cursor-pointer ${
-              activeItem === "/settings" ? "bg-gray-500" : ""
+            className={`flex gap-2 p-1.5 rounded-md hover:bg-[#EDF6F7] cursor-pointer ${
+              activeItem === "/settings" ? "bg-[#EDF6F7]" : ""
             }`}
             onClick={() => setActiveItem("/settings")}
           >
@@ -194,7 +194,7 @@ const Sidebar = () => {
             <span>Settings</span>
           </button>
           <button
-            className="flex gap-2 p-1.5 rounded-md cursor-pointer hover:bg-gray-700"
+            className="flex gap-2 p-1.5 rounded-md cursor-pointer hover:bg-[#EDF6F7]"
             onClick={() => handleLogout()}
           >
             <SignOut size={20} />
@@ -227,7 +227,7 @@ const Sidebar = () => {
             isOpen ? "visible" : "invisible"
           }`}
         >
-          Overview
+          Main Menu
         </div>
       </div>
       <div className="flex flex-col relative">
@@ -235,8 +235,8 @@ const Sidebar = () => {
           {menuItems.map((item) => (
             <div key={item.name} className="">
               <button
-                className={`flex gap-2 p-2 hover:bg-gray-700 rounded-md cursor-pointer ${
-                  activeItem === item.path ? "bg-gray-700" : ""
+                className={`flex gap-2 p-2 hover:bg-[#EDF6F7] rounded-md cursor-pointer ${
+                  activeItem === item.path ? "bg-[#EDF6F7]" : ""
                 }`}
                 onClick={(event) => handleItemClick(event, item)}
               >
@@ -251,13 +251,13 @@ const Sidebar = () => {
       <div className="flex flex-col relative mt-auto bottom-2 gap-2">
         <div className="flex flex-col">
           <button
-            className="p-1.5 rounded-md hover:bg-gray-700 cursor-pointer"
+            className="p-1.5 rounded-md hover:bg-[#EDF6F7] cursor-pointer"
             onClick={() => {}}
           >
             <Gear size={20} />
           </button>
           <button
-            className="p-1.5 rounded-md hover:bg-gray-700 cursor-pointer"
+            className="p-1.5 rounded-md hover:bg-[#EDF6F7] cursor-pointer"
             onClick={() => handleLogout()}
           >
             <SignOut size={20} />
@@ -266,11 +266,11 @@ const Sidebar = () => {
       </div>
 
       {contextMenu && (
-        <div className="absolute bg-gray-800 text-white rounded-md shadow-lg p-2" style={{ top: contextMenu.y, left: contextMenu.x }}>
+        <div className="absolute border-solid border-1 border-gray-300 rounded-md shadow-lg p-2 bg-white" style={{ top: contextMenu.y, left: contextMenu.x }}>
           {contextMenu.subItems.map((subItem) => (
             <button
               key={subItem.name}
-              className={`flex gap-2 hover:bg-gray-700 rounded-md p-1.5 w-full cursor-pointer ${activeItem === subItem.path ? "bg-gray-700" : ""}`}
+              className={`flex gap-2 hover:bg-[#EDF6F7] rounded-md p-1.5 w-full cursor-pointer ${activeItem === subItem.path ? "bg-[#EDF6F7]" : ""}`}
               onClick={() => handleSubItemClick(subItem.path!!)}
             >
               <subItem.icon size={20} />
@@ -286,7 +286,7 @@ const Sidebar = () => {
     <div
       className={`flex flex-col ${
         isOpen ? "w-50" : "w-12 items-center"
-      } bg-gray-800 text-white text-sm px-3 py-3 gap-5 h-screen transition-all duration-700`}
+      } text-sm px-3 py-3 gap-5 h-screen transition-all duration-700 border-solid border-r-2 border-gray-200`}
     >
       {isOpen ? expandedView : collapsedView}
     </div>
