@@ -119,9 +119,9 @@ const Sidebar = () => {
           onClick={toggleSidebar}
         >
           {isOpen ? (
-            <CaretDoubleLeft size={20} weight="duotone" />
+            <CaretDoubleLeft size={22} weight="duotone" />
           ) : (
-            <CaretDoubleRight size={20} weight="duotone" />
+            <CaretDoubleRight size={22} weight="duotone" />
           )}
         </button>
       </div>
@@ -146,20 +146,44 @@ const Sidebar = () => {
                     }
                     onClick={(event) => handleItemClick(event, item)}
                   >
-                    <item.icon size={20} />
+                    {isOpen ? (
+                      <item.icon size={22} />
+                    ) : (
+                      (() => {
+                        let foundItem = item.subItems.find(
+                          (subItem) => subItem.path === activeItem
+                        );
+                        if (foundItem) {
+                          return (
+                            <div className="relative flex items-center justify-center">
+                              <div
+                                className={`absolute bottom-0 right-0 translate-x-1.5 translate-y-1 rounded-full flex items-center justify-center border-1 bg-white`}
+                                style={{ padding: "2px" }}
+                              >
+                                <foundItem.icon size={11} />
+                              </div>
+                              <item.icon size={22} />
+                            </div>
+                          );
+                        } else {
+                          return <item.icon size={22} />;
+                        }
+                      })()
+                    )}
+                    {/* <item.icon size={22} /> */}
                     {isOpen && <span>{item.name}</span>}
                     {isOpen && (
                       <>
                         {openItem !== item.name ? (
                           <CaretDown
                             className="ml-auto"
-                            size={20}
+                            size={22}
                             weight="duotone"
                           />
                         ) : (
                           <CaretUp
                             className="ml-auto"
-                            size={20}
+                            size={22}
                             weight="duotone"
                           />
                         )}
@@ -181,7 +205,7 @@ const Sidebar = () => {
                               }`}
                               onClick={() => setActiveItem(subItem.path!!)}
                             >
-                              <subItem.icon size={20} />
+                              <subItem.icon size={22} />
                               <span>{subItem.name}</span>
                             </button>
                           ))}
@@ -201,7 +225,7 @@ const Sidebar = () => {
                   }`}
                   onClick={() => setActiveItem(item.path!!)}
                 >
-                  <item.icon size={20} />
+                  <item.icon size={22} />
                   {isOpen && <span>{item.name}</span>}
                 </button>
               )}
@@ -222,14 +246,14 @@ const Sidebar = () => {
             }`}
             onClick={() => setActiveItem("/settings")}
           >
-            <Gear size={20} />
+            <Gear size={22} />
             {isOpen && <span>Settings</span>}
           </button>
           <button
             className="flex gap-2 p-1.5 rounded-md cursor-pointer hover:bg-[#EDF6F7] hover:border-l-[#86AEAB] hover:border-l-3"
             onClick={() => handleLogout()}
           >
-            <SignOut size={20} />
+            <SignOut size={22} />
             {isOpen && <span>Log out</span>}
           </button>
         </div>
@@ -248,7 +272,7 @@ const Sidebar = () => {
               }`}
               onClick={() => handleSubItemClick(subItem.path!!)}
             >
-              <subItem.icon size={20} />
+              <subItem.icon size={22} />
               <span>{subItem.name}</span>
             </button>
           ))}
