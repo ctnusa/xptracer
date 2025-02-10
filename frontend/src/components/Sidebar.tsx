@@ -66,9 +66,14 @@ const Sidebar = () => {
     }
   };
 
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+    setContextMenu(null); // Close context menu when toggling sidebar
+  };
+
   const handleItemClick = (event: React.MouseEvent, item: MenuItem) => {
     if (isOpen) {
-      setOpenItem(openItem === item.name ? null : item.name)
+      setOpenItem(openItem === item.name ? null : item.name);
     } else if (item.subItems) {
       const menuItemRect = event.currentTarget.getBoundingClientRect();
       setContextMenu({
@@ -90,89 +95,114 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
-    setActiveItem('/')
+    setActiveItem("/");
   }, []);
 
-  const expandedView = (
-    <>
+  return (
+    <div
+      className={`flex flex-col text-sm  py-3 gap-5 h-screen transition-all duration-700 border-solid border-r-2 text-gray-600 border-gray-200 ${
+        isOpen ? "w-50 px-3" : "w-12 items-center"
+      }`}
+    >
       {/* Logo section */}
-      <div className="flex justify-center items-center gap-1 h-12">
+      <div
+        className={`flex justify-center items-center gap-1 h-12 ${
+          isOpen ? "" : "flex-col"
+        }`}
+      >
         <img src="/vite.svg" alt="Logo" className="w-10" />
-        <span className="text-lg">Xptracer</span>
+        {isOpen && <span className="text-lg">Xptracer</span>}
         <button
-          className="flex ml-auto text-gray-400 hover:text-white cursor-pointer"
-          onClick={() => setIsOpen(!isOpen)}
+          className={`${
+            isOpen ? "ml-auto" : ""
+          } text-gray-400 cursor-pointer hover:text-gray-500`}
+          onClick={toggleSidebar}
         >
-          <CaretDoubleLeft size={20} weight="duotone" />
+          {isOpen ? (
+            <CaretDoubleLeft size={20} weight="duotone" />
+          ) : (
+            <CaretDoubleRight size={20} weight="duotone" />
+          )}
         </button>
       </div>
 
-      <hr className="border-gray-600 border-solid border-0.5" />
+      <hr className="border-gray-300 border-solid border-0.5 px-5" />
 
       {/* Overview section */}
       <div className="flex flex-col">
-        <div
-          className={`uppercase font-bold mb-4 p-1 ${
-            isOpen ? "visible" : "invisible"
-          }`}
-        >
-          Main Menu
-        </div>
-        <div className="flex flex-col gap-2">
+        {isOpen && (
+          <div className={`uppercase font-bold mb-4 p-1 text-gray-500`}>
+            Main Menu
+          </div>
+        )}
+        <div className="flex flex-col gap-1">
           {menuItems.map((item) => (
-            <div key={item.name} className="">
+            <div key={item.name}>
               {item.subItems ? (
                 <div className="">
                   <button
                     className={
-                      "flex gap-2 w-full p-1.5 hover:bg-[#EDF6F7] rounded-md cursor-pointer"
+                      "flex gap-2 w-full p-1.5 hover:bg-[#EDF6F7] hover:border-l-[#86AEAB] hover:border-l-3 rounded-md cursor-pointer"
                     }
-                    onClick={() =>
-                      setOpenItem(openItem === item.name ? null : item.name)
-                    }
+                    onClick={(event) => handleItemClick(event, item)}
                   >
                     <item.icon size={20} />
-                    <span>{item.name}</span>
-
-                    {openItem !== item.name ? (
-                      <CaretDown
-                        className="ml-auto"
-                        size={20}
-                        weight="duotone"
-                      />
-                    ) : (
-                      <CaretUp className="ml-auto" size={20} weight="duotone" />
+                    {isOpen && <span>{item.name}</span>}
+                    {isOpen && (
+                      <>
+                        {openItem !== item.name ? (
+                          <CaretDown
+                            className="ml-auto"
+                            size={20}
+                            weight="duotone"
+                          />
+                        ) : (
+                          <CaretUp
+                            className="ml-auto"
+                            size={20}
+                            weight="duotone"
+                          />
+                        )}
+                      </>
                     )}
                   </button>
 
-                  {openItem === item.name ? (
-                    <div className="flex flex-col ml-6 pt-1 space-y-1">
-                      {item.subItems.map((subItem) => (
-                        <button
-                          key={subItem.name}
-                          className={`flex gap-2 hover:bg-[#EDF6F7] rounded-md p-1.5 cursor-pointer ${
-                            activeItem === subItem.path ? "hover:bg-[#EDF6F7]" : ""
-                          }`}
-                          onClick={() => setActiveItem(subItem.path!!)}
-                        >
-                          <subItem.icon size={20} />
-                          <span>{subItem.name}</span>
-                        </button>
-                      ))}
-                    </div>
-                  ) : (
-                    <div></div>
+                  {isOpen && (
+                    <>
+                      {openItem === item.name ? (
+                        <div className="flex flex-col ml-6 pt-1 space-y-1">
+                          {item.subItems.map((subItem) => (
+                            <button
+                              key={subItem.name}
+                              className={`flex gap-2 hover:bg-[#EDF6F7] rounded-md p-1.5 cursor-pointer hover:border-l-[#86AEAB] hover:border-l-3 ${
+                                activeItem === subItem.path
+                                  ? "border-l-[#86AEAB] border-l-3 bg-[#EDF6F7]"
+                                  : ""
+                              }`}
+                              onClick={() => setActiveItem(subItem.path!!)}
+                            >
+                              <subItem.icon size={20} />
+                              <span>{subItem.name}</span>
+                            </button>
+                          ))}
+                        </div>
+                      ) : (
+                        <div></div>
+                      )}
+                    </>
                   )}
                 </div>
               ) : (
                 <button
-                  className={`flex gap-2 hover:bg-[#EDF6F7] rounded-md w-full p-1.5 cursor-pointer ${
-                    activeItem === item.path ? "bg-[#EDF6F7]" : ""
+                  className={`flex gap-2 hover:bg-[#EDF6F7] rounded-md w-full p-1.5 cursor-pointer hover:border-l-[#86AEAB] hover:border-l-3 ${
+                    activeItem === item.path
+                      ? "bg-[#EDF6F7] border-l-3 border-l-[#86AEAB]"
+                      : ""
                   }`}
                   onClick={() => setActiveItem(item.path!!)}
                 >
                   <item.icon size={20} />
-                  <span>{item.name}</span>
+                  {isOpen && <span>{item.name}</span>}
                 </button>
               )}
             </div>
@@ -182,95 +212,40 @@ const Sidebar = () => {
 
       {/* Account section fixed the bottom */}
       <div className="flex flex-col mt-auto relative bottom-2 gap-1.5">
-        <p className="uppercase font-bold">Account</p>
+        {isOpen && <p className="uppercase font-bold">Account</p>}
         <div className="flex flex-col gap-1.5">
           <button
-            className={`flex gap-2 p-1.5 rounded-md hover:bg-[#EDF6F7] cursor-pointer ${
-              activeItem === "/settings" ? "bg-[#EDF6F7]" : ""
+            className={`flex gap-2 p-1.5 rounded-md hover:bg-[#EDF6F7] cursor-pointer hover:border-l-[#86AEAB] hover:border-l-3 ${
+              activeItem === "/settings"
+                ? "bg-[#EDF6F7] border-l-3 border-l-[#86AEAB]"
+                : ""
             }`}
             onClick={() => setActiveItem("/settings")}
           >
             <Gear size={20} />
-            <span>Settings</span>
+            {isOpen && <span>Settings</span>}
           </button>
           <button
-            className="flex gap-2 p-1.5 rounded-md cursor-pointer hover:bg-[#EDF6F7]"
+            className="flex gap-2 p-1.5 rounded-md cursor-pointer hover:bg-[#EDF6F7] hover:border-l-[#86AEAB] hover:border-l-3"
             onClick={() => handleLogout()}
           >
             <SignOut size={20} />
-            <span>Log out</span>
-          </button>
-        </div>
-      </div>
-    </>
-  );
-
-  const collapsedView = (
-    <>
-      {/* Logo section */}
-      <div className="flex flex-col justify-between items-center gap-2 h-12">
-        <img src="/vite.svg" alt="Logo" className="w-10" />
-        <button
-          className="text-gray-400 hover:text-white cursor-pointer"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <CaretDoubleRight size={20} weight="duotone" />
-        </button>
-      </div>
-
-      <hr className="border-gray-600 border-solid border-0.5 w-full" />
-
-      {/* Overview section */}
-      <div className="flex flex-col absolute top-25">
-        <div
-          className={`uppercase font-bold mb-4 ${
-            isOpen ? "visible" : "invisible"
-          }`}
-        >
-          Main Menu
-        </div>
-      </div>
-      <div className="flex flex-col relative">
-        <div className="flex flex-col">
-          {menuItems.map((item) => (
-            <div key={item.name} className="">
-              <button
-                className={`flex gap-2 p-2 hover:bg-[#EDF6F7] rounded-md cursor-pointer ${
-                  activeItem === item.path ? "bg-[#EDF6F7]" : ""
-                }`}
-                onClick={(event) => handleItemClick(event, item)}
-              >
-                <item.icon size={20} />
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Account section fixed the bottom */}
-      <div className="flex flex-col relative mt-auto bottom-2 gap-2">
-        <div className="flex flex-col">
-          <button
-            className="p-1.5 rounded-md hover:bg-[#EDF6F7] cursor-pointer"
-            onClick={() => {}}
-          >
-            <Gear size={20} />
-          </button>
-          <button
-            className="p-1.5 rounded-md hover:bg-[#EDF6F7] cursor-pointer"
-            onClick={() => handleLogout()}
-          >
-            <SignOut size={20} />
+            {isOpen && <span>Log out</span>}
           </button>
         </div>
       </div>
 
       {contextMenu && (
-        <div className="absolute border-solid border-1 border-gray-300 rounded-md shadow-lg p-2 bg-white" style={{ top: contextMenu.y, left: contextMenu.x }}>
+        <div
+          className="absolute border-solid border-1 border-gray-300 rounded-md shadow-lg p-2 bg-white"
+          style={{ top: contextMenu.y, left: contextMenu.x }}
+        >
           {contextMenu.subItems.map((subItem) => (
             <button
               key={subItem.name}
-              className={`flex gap-2 hover:bg-[#EDF6F7] rounded-md p-1.5 w-full cursor-pointer ${activeItem === subItem.path ? "bg-[#EDF6F7]" : ""}`}
+              className={`flex gap-2 hover:bg-[#EDF6F7] rounded-md p-1.5 w-full cursor-pointer ${
+                activeItem === subItem.path ? "bg-[#EDF6F7]" : ""
+              }`}
               onClick={() => handleSubItemClick(subItem.path!!)}
             >
               <subItem.icon size={20} />
@@ -279,16 +254,6 @@ const Sidebar = () => {
           ))}
         </div>
       )}
-    </>
-  );
-
-  return (
-    <div
-      className={`flex flex-col ${
-        isOpen ? "w-50" : "w-12 items-center"
-      } text-sm px-3 py-3 gap-5 h-screen transition-all duration-700 border-solid border-r-2 border-gray-200`}
-    >
-      {isOpen ? expandedView : collapsedView}
     </div>
   );
 };
