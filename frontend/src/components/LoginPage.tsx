@@ -41,7 +41,7 @@ const LoginPage: React.FC = () => {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-sm text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Enter your username"
               required
             />
@@ -55,7 +55,7 @@ const LoginPage: React.FC = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-sm text-gray-700 mb-1 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Enter your password"
               required
             />
@@ -64,10 +64,30 @@ const LoginPage: React.FC = () => {
           <div className="flex items-center justify-between">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-sm rounded focus:outline-none focus:shadow-outline"
             >
               Login
             </button>
+            <button
+              type="button"
+              className="text-blue-500 hover:text-blue-700 font-bold text-sm"
+              onClick={() => navigate('/forgot-password')}
+            >
+              Forgot Password?
+            </button>
+          </div>
+          
+          <div className="mt-4 text-center">
+            <p className="text-gray-700 text-sm">
+              Don't have an account?{' '}
+              <button
+                type="button"
+                className="text-blue-500 hover:text-blue-700 font-bold"
+                onClick={() => navigate('/register')}
+              >
+                Register
+              </button>
+            </p>
           </div>
         </form>
       </div>
