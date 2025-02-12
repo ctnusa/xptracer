@@ -1,29 +1,25 @@
 import {
   CaretDoubleLeft,
-  CaretDoubleRight,
-  CaretDown,
-  CaretUp,
-  ChartLine,
-  Gear,
+  CaretDoubleRight, Gear,
   House,
   Icon,
   SignOut,
   Money,
   CreditCard,
-  ChartBar,
+  ChartBar
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLogoutUserMutation } from "../graphql/generated";
 
 interface MenuItem {
   name: string;
   icon: Icon;
-  path?: string;
+  path: string;
 }
 const menuItems: MenuItem[] = [
-  { name: "Home", icon: House, path: "/" },
-  { name: "Income", icon: Money, path: "/income" },
+  { name: "Dashboard", icon: Money, path: "/" },
+  { name: "Income", icon: House, path: "/income" },
   { name: "Expense", icon: CreditCard, path: "/expense" },
   { name: "Analytics", icon: ChartBar, path: "/analytics" },
 ];
@@ -98,21 +94,38 @@ const Sidebar = () => {
 
       <div className="flex flex-col py-2 w-full px-1">
         {menuItems.map((item) => (
-          <button
-            key={item.name}
-            className={`flex gap-2 rounded-md w-full p-2 cursor-pointer relative group ${
-              activeItem === item.path ? "bg-[#86AEAB]" : "hover:bg-[#C1DDE0]"
-            }`}
-            onClick={() => setActiveItem(item.path!!)}
-          >
-            <item.icon size={20} className="shrink-0" />
-            {!isOpen && (
-              <div className="border-solid absolute left-full top-1/2 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#C1DDE0] rounded-md px-3 py-2 transform -translate-y-1/2">
-                {item.name}
-              </div>
-            )}
-            {isOpen && <span className="">{item.name}</span>}
-          </button>
+          <Link
+          key={item.name}
+          className={`flex gap-2 rounded-md w-full p-2 cursor-pointer relative group ${
+            activeItem === item.path ? "bg-[#86AEAB]" : "hover:bg-[#C1DDE0]"
+          }`}
+          onClick={() => setActiveItem(item.path!!)}
+          to={item.path}
+        >
+          <item.icon size={20} className="shrink-0" />
+          {!isOpen && (
+            <div className="border-solid absolute left-full top-1/2 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#C1DDE0] rounded-md px-3 py-2 transform -translate-y-1/2">
+              {item.name}
+            </div>
+          )}
+          {isOpen && <span className="">{item.name}</span>}
+        </Link>
+
+          // <button
+          //   key={item.name}
+          //   className={`flex gap-2 rounded-md w-full p-2 cursor-pointer relative group ${
+          //     activeItem === item.path ? "bg-[#86AEAB]" : "hover:bg-[#C1DDE0]"
+          //   }`}
+          //   onClick={() => setActiveItem(item.path!!)}
+          // >
+          //   <item.icon size={20} className="shrink-0" />
+          //   {!isOpen && (
+          //     <div className="border-solid absolute left-full top-1/2 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#C1DDE0] rounded-md px-3 py-2 transform -translate-y-1/2">
+          //       {item.name}
+          //     </div>
+          //   )}
+          //   {isOpen && <span className="">{item.name}</span>}
+          // </button>
         ))}
       </div>
 
