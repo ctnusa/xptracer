@@ -1,9 +1,64 @@
 import { GaugeComponent } from "react-gauge-component";
+import React, { PureComponent } from "react";
+import {
+  ComposedChart,
+  Line,
+  Area,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  Scatter,
+  ResponsiveContainer,
+  BarChart,
+} from "recharts";
+
+import { CaretUp, LineVertical } from "@phosphor-icons/react";
+import Card from "../components/Card";
+
+const data = [
+  { month: "Jan", sales: 4000 },
+  { month: "Feb", sales: 3000 },
+  { month: "Mar", sales: 5000 },
+  { month: "Apr", sales: 7000 },
+  { month: "May", sales: 6000 },
+];
 
 const Dashboard = () => {
   return (
-    <div className="flex flex-wrap gap-3">
-      <div className=" bg-white rounded-sm shadown-sm">
+    <div className="flex flex-col gap-3 h-screen">
+      <div className="flex flex-wrap gap-3 w-full">
+        <Card
+          title="Bank Balance"
+          className="flex-grow flex flex-col items-center text-center"
+        >
+          <p className="text-2xl font-bold mb-2">$12,500</p>
+          <div className="flex gap-2">
+            <CaretUp size={20} weight="fill" className="text-green-400" />
+            {/* <LineVertical size={20} weight="fill" className="text-green-400" /> */}
+            <p className="text-green-400">$12,300</p>
+            |
+            <CaretUp size={20} weight="fill" className="text-green-400" />
+            <p className="text-green-400">30%</p>
+          </div>
+        </Card>
+        <Card title="Revenue" className="flex-grow text-center">
+          <p className="text-2xl font-bold">$7,500</p>
+        </Card>
+        <Card title="Tax Deductions" className="flex-grow text-center">
+          <p className="text-2xl font-bold">$1,500</p>
+        </Card>
+        <Card title="Expenses" className="flex-grow text-center">
+          <p className="text-2xl font-bold">$2,500</p>
+        </Card>
+        <Card title="Saving" className="flex-grow text-center">
+          <p className="text-2xl font-bold">$5,000</p>
+        </Card>
+      </div>
+
+      {/* <div className=" bg-white rounded-sm shadown-sm">
         <GaugeComponent
           type="semicircle"
           arc={{
@@ -108,6 +163,47 @@ const Dashboard = () => {
           value={27}
         />
       </div>
+
+      <div className="w-full max-w-lg mx-auto p-4 bg-white shadow-md rounded-lg">
+        <h2 className="text-lg font-semibold text-center text-gray-800 mb-4">
+          Monthly Sales
+        </h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={data} barGap={0}>
+            <XAxis dataKey="month" className="text-sm" />
+            <YAxis className="text-sm" />
+            <Tooltip
+              contentStyle={{ backgroundColor: "#f9fafb", borderRadius: "8px" }}
+            />
+            <Bar
+              dataKey="sales"
+              fill="#6366F1"
+              barSize={40}
+              className="rounded-md"
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="w-full max-w-lg mx-auto p-4 bg-white shadow-md rounded-lg">
+        <h2 className="text-lg font-semibold text-center text-gray-800 mb-4">
+          Monthly Sales
+        </h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={data} barGap={0}>
+            <XAxis dataKey="month" className="text-sm" />
+            <YAxis className="text-sm" />
+            <Tooltip
+              contentStyle={{ backgroundColor: "#f9fafb", borderRadius: "8px" }}
+            />
+            <Bar
+              dataKey="sales"
+              fill="#6366F1"
+              barSize={40}
+              className="rounded-md"
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </div> */}
     </div>
   );
 };
