@@ -105,7 +105,9 @@ const Sidebar = () => {
           <Link
             key={item.name}
             className={`flex gap-2 rounded-md w-full p-2 cursor-pointer relative group ${
-              activeItem === item.path ? "bg-accent text-background" : "hover:bg-hover "
+              activeItem === item.path
+                ? "bg-accent text-background"
+                : "hover:bg-hover "
             }`}
             onClick={() => setActiveItem(item.path!!)}
             to={item.path}
@@ -147,11 +149,12 @@ const Sidebar = () => {
           Account
         </p>
         <div className="flex flex-col px-1">
-          <button
+          <Link
             className={`flex gap-2 p-2 rounded-md cursor-pointer relative group ${
               activeItem === "/settings" ? "bg-accent" : "hover:bg-hover"
             }`}
             onClick={() => setActiveItem("/settings")}
+            to={"/settings"}
           >
             <Gear size={20} className="shrink-0" />
             {!isOpen && (
@@ -160,7 +163,7 @@ const Sidebar = () => {
               </div>
             )}
             {isOpen && <span>Settings</span>}
-          </button>
+          </Link>
           <button
             className="flex gap-2 p-2 rounded-md cursor-pointer relative group hover:bg-[#C1DDE0]"
             onClick={() => handleLogout()}

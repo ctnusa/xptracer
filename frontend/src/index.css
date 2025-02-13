@@ -1,22 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
 
-@theme {
-    --color-background: #15192A;
-    --color-disable: #4B5563;
-    --color-muted: #111;
-    --color-success: #111;
-    --color-error: #111;
-    --color-warning: #111;
-    --color-info: #111;
-    
-    --color-primary: #20263C;
-    --color-secondary: #FFFFFF;
-    --color-tertiary: #32A461;
-    --color-accent: #EDF1FE;
-    --color-hover: #EDF1FE1A;
+/**
+Reference to create dark/light theme: https://tailwindcss.com/docs/colors#referencing-other-variables
+*/
+:root {
+  --custom-color-text: #000000; /* Dark text on light background */
+  --custom-color-background: #ffffff; /* Light background */
+  --custom-color-primary: #ffffff; /* Light primary color */
+  --custom-color-secondary: #20263c; /* Darker secondary color */
+  --custom-color-accent: #32a461; /* Accent color (e.g., green or bright) */
+  --custom-color-hover: #edf1fe1a; /* Light hover color */
+  --custom-color-disable: #d1d5db; /* Lighter disabled color */
+}
+
+/* Data-theme must be placed after :root; otherwise, root will take priority */
+[data-theme="dark"] {
+  --custom-color-text: #ffffff;
+  --custom-color-background: #15192a;
+  --custom-color-primary: #20263c;
+  --custom-color-secondary: #ffffff;
+  --custom-color-accent: #20263c;
+  --custom-color-hover: #edf1fe1a;
+  --custom-color-disable: #4b5563;
+}
+
+@theme inline {
+  --color-text: var(--custom-color-text);
+  --color-background: var(--custom-color-background);
+  --color-primary: var(--custom-color-primary);
+  --color-secondary: var(--custom-color-secondary);
+  --color-accent: var(--custom-color-accent);
+  --color-hover: var(--custom-color-hover);
+  --color-disable: var(--custom-color-disable);
 }
 
 body {
-    font-family: 'Inter', cursive;
+  font-family: "Inter", cursive;
 }
