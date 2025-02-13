@@ -1,6 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
 
+@theme {
+    --color-primary: #171C3A;
+    --color-secondary: #FFFFFF;
+    --color-tertiary: #f4f4f4;
+    --color-background: #0B0E27;
+    --color-border: #0B0E27;
+    --color-muted: #111;
+    --color-accent: #111;
+    --color-success: #111;
+    --color-error: #111;
+    --color-warning: #111;
+    --color-info: #111;
+}
 
 body {
     font-family: 'Inter', cursive;

@@ -6,7 +6,7 @@ const HomePage = () => {
     <div className="flex h-screen">
       <Sidebar />
 
-      <div className="p-3 bg-[#16113A] w-full">
+      <div className="p-3 bg-background w-full">
         <Outlet />
       </div>
     </div>
