@@ -36,8 +36,7 @@ const Dashboard = () => {
         >
           <p className="text-2xl font-bold mb-2">$12,500</p>
           <div className="flex gap-2">
-            <CaretUp size={20} weight="fill" className="text-green-400" />
-            {/* <LineVertical size={20} weight="fill" className="text-green-400" /> */}
+            <CaretUp size={20} weight="fill" className="text-tertiary" />
             <p className="text-green-400">$12,300</p>
             |
             <CaretUp size={20} weight="fill" className="text-green-400" />

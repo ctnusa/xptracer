@@ -1,12 +1,13 @@
 import {
   CaretDoubleLeft,
-  CaretDoubleRight, Gear,
+  CaretDoubleRight,
+  Gear,
   House,
   Icon,
   SignOut,
   Money,
   CreditCard,
-  ChartBar
+  ChartBar,
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -65,18 +66,21 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`flex flex-col justify-between h-screen text-sm transition-all duration-300 border-solid border-r-1 text-secondary border-border items-start shadow-sm bg-primary ${isOpen ? "w-64" : "w-11"
-        }`}
+      className={`flex flex-col justify-between h-screen text-sm transition-all duration-300 border-solid border-r-1 border-background text-secondary items-start shadow-sm bg-primary px-1 ${
+        isOpen ? "w-64" : "w-13"
+      }`}
     >
       <div
-        className={`flex justify-center items-center gap-1 h-14 py-10 w-full px-1 ${isOpen ? "" : "flex-col"
-          }`}
+        className={`flex justify-center items-center gap-1 h-14 py-10 w-full px-1 ${
+          isOpen ? "" : "flex-col"
+        }`}
       >
         <img src="/vite.svg" alt="Logo" className="w-8.5" />
         {isOpen && <span className="text-lg">Xptracer</span>}
         <button
-          className={`${isOpen ? "ml-auto" : ""
-            }  cursor-pointer hover:text-gray-500`}
+          className={`${
+            isOpen ? "ml-auto" : ""
+          }  cursor-pointer hover:text-gray-500`}
           onClick={toggleSidebar}
         >
           {isOpen ? (
@@ -87,20 +91,28 @@ const Sidebar = () => {
         </button>
       </div>
 
-      <hr className="border-gray-200 border-solid border-0.5 w-full shadow-sm" />
+      {/* <hr className="border-disable border-solid border-0.5 w-full shadow-sm" /> */}
 
-      <div className="flex flex-col py-2 w-full px-1">
+      <div className="flex flex-col py-2 w-full px-1 mt-3">
+        <p
+          className={`uppercase font-semibold ml-4 mb-2 text-disable ${
+            isOpen ? "visible" : "invisible"
+          }`}
+        >
+          Main
+        </p>
         {menuItems.map((item) => (
           <Link
             key={item.name}
-            className={`flex gap-2 rounded-md w-full p-2 cursor-pointer relative group ${activeItem === item.path ? "bg-[#86AEAB]" : "hover:bg-[#C1DDE0]"
-              }`}
+            className={`flex gap-2 rounded-md w-full p-2 cursor-pointer relative group ${
+              activeItem === item.path ? "bg-accent text-background" : "hover:bg-hover "
+            }`}
             onClick={() => setActiveItem(item.path!!)}
             to={item.path}
           >
             <item.icon size={20} className="shrink-0" />
             {!isOpen && (
-              <div className="border-solid absolute left-full top-1/2 ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[#C1DDE0] rounded-md px-3 py-2 transform -translate-y-1/2">
+              <div className="border-solid absolute left-full top-1/2 ml-2 opacity-0 group-hover:opacity-100 group-hover:bg-disable group-hover:text-accent transition-opacity duration-300 bg-disable rounded-md px-3 py-2 transform -translate-y-1/2">
                 {item.name}
               </div>
             )}
@@ -125,12 +137,20 @@ const Sidebar = () => {
         ))}
       </div>
 
-      <hr className="border-gray-200 mt-auto border-solid mb-1 border-0.5 w-full shadow-sm" />
-      <div className="flex flex-col mb-1 w-full">
+      {/* <hr className="border-disable mt-auto border-solid mb-1 border-0.5 w-full shadow-sm" /> */}
+      <div className="flex flex-col mt-auto mb-1 w-full">
+        <p
+          className={`uppercase font-semibold ml-4 mb-2 text-disable ${
+            isOpen ? "visible" : "invisible"
+          }`}
+        >
+          Account
+        </p>
         <div className="flex flex-col px-1">
           <button
-            className={`flex gap-2 p-2 rounded-md cursor-pointer relative group ${activeItem === "/settings" ? "bg-[#86AEAB]" : "hover:bg-[#C1DDE0]"
-              }`}
+            className={`flex gap-2 p-2 rounded-md cursor-pointer relative group ${
+              activeItem === "/settings" ? "bg-accent" : "hover:bg-hover"
+            }`}
             onClick={() => setActiveItem("/settings")}
           >
             <Gear size={20} className="shrink-0" />
