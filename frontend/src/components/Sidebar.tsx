@@ -66,12 +66,12 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`flex flex-col justify-between h-screen text-sm transition-all duration-300 border-solid border-r-1 border-background text-secondary items-start shadow-sm bg-primary px-1 ${
+      className={`flex flex-col justify-between h-screen text-sm transition-all duration-300 border-solid border-r-1 border-background text-secondary items-start shadow-sm bg-quaternary px-1 ${
         isOpen ? "w-64" : "w-13"
       }`}
     >
       <div
-        className={`flex justify-center items-center gap-1 h-14 py-10 w-full px-1 ${
+        className={`flex justify-center items-ceFnter gap-1 h-14 py-10 w-full px-1 ${
           isOpen ? "" : "flex-col"
         }`}
       >
@@ -80,7 +80,7 @@ const Sidebar = () => {
         <button
           className={`${
             isOpen ? "ml-auto" : ""
-          }  cursor-pointer hover:text-gray-500`}
+          }  cursor-pointer hover:text-hover`}
           onClick={toggleSidebar}
         >
           {isOpen ? (
@@ -107,7 +107,7 @@ const Sidebar = () => {
             className={`flex gap-2 rounded-md w-full p-2 cursor-pointer relative group ${
               activeItem === item.path
                 ? "bg-accent text-background"
-                : "hover:bg-hover "
+                : "hover:bg-hover"
             }`}
             onClick={() => setActiveItem(item.path!!)}
             to={item.path}

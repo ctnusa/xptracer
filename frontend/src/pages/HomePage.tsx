@@ -3,9 +3,9 @@ import Sidebar from "../components/Sidebar";
 
 const HomePage = () => {
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex h-screen bg-tertiary">
       <Sidebar />
-      <div className="p-3 w-full">
+      <div className="p-3 w-full bg-tertiary">
         <Outlet />
       </div>
     </div>

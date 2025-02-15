@@ -6,7 +6,7 @@ interface CardProps {
 
 const Card = (props: CardProps) => {
   return (
-    <div className={`bg-primary text-white shadow-sm rounded-sm p-4 ${props.className}`}>
+    <div className={`text-secondary bg-quaternary shadow-sm rounded-sm p-4 ${props.className}`}>
       <h2 className="text-xs text-center mb-1">{props.title}</h2>
       <div className="mt-2 ">{props.children}</div>
     </div>

@@ -34,13 +34,15 @@ const Dashboard = () => {
           title="Bank Balance"
           className="flex-grow flex flex-col items-center text-center"
         >
-          <p className="text-2xl font-bold mb-2">$12,500</p>
-          <div className="flex gap-2">
-            <CaretUp size={20} weight="fill" className="text-tertiary" />
-            <p className="text-green-400">$12,300</p>
-            |
-            <CaretUp size={20} weight="fill" className="text-green-400" />
-            <p className="text-green-400">30%</p>
+          <div className="text-secondary">
+            <p className="text-2xl font-bold mb-2">$12,500</p>
+            <div className="flex gap-2 text-quinary">
+              <CaretUp size={20} weight="fill" className="" />
+              <p className="">$12,300</p>
+              |
+              <CaretUp size={20} weight="fill" className="" />
+              <p className="">30%</p>
+            </div>
           </div>
         </Card>
         <Card title="Revenue" className="flex-grow text-center">
