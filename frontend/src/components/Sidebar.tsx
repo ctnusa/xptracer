@@ -10,7 +10,7 @@ import {
   ChartBar,
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLogoutUserMutation } from "../graphql/generated";
 
 interface MenuItem {
@@ -30,6 +30,7 @@ const Sidebar = () => {
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [logout] = useLogoutUserMutation();
   const navigate = useNavigate();
+  const location = useLocation()
 
   const handleLogout = async () => {
     try {
@@ -46,8 +47,8 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
-    setActiveItem("/");
-  }, []);
+    setActiveItem(location.pathname)
+  }, [location.pathname]);
 
   return (
     <div
