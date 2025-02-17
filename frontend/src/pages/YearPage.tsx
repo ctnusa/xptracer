@@ -66,7 +66,7 @@ const data = [
   },
 ];
 
-const Dashboard = () => {
+export const YearPage = () => {
   const [monthData, setMonthData] = useState<any>([]);
   const [expenseData, setExpenseData] = useState<any>([]);
   const [incomeData, setIncomeData] = useState<any>([]);
@@ -626,4 +626,3 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;

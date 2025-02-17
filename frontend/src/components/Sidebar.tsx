@@ -19,8 +19,8 @@ interface MenuItem {
   path: string;
 }
 const menuItems: MenuItem[] = [
-  { name: "Dashboard", icon: Money, path: "/" },
-  { name: "Income", icon: House, path: "/income" },
+  { name: "Year", icon: Money, path: "/" },
+  { name: "Month", icon: House, path: "/month" },
   { name: "Expense", icon: CreditCard, path: "/expense" },
   { name: "Analytics", icon: ChartBar, path: "/analytics" },
 ];

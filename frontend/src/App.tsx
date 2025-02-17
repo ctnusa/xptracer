@@ -7,7 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProtectedRoutes from "./pages/ProtectedRoute";
 import RegisterPage from "./pages/RegisterPage";
-import Dashboard from "./pages/Dashboard";
+import { YearPage } from "./pages/YearPage";
 import Income from "./pages/IncomePage";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { Settings } from "./pages/Settings";
@@ -20,8 +20,8 @@ const App: React.FC = () => {
           <Routes>
             <Route element={<ProtectedRoutes />}>
               <Route path="/" element={<HomePage />}>
-                <Route index element={<Dashboard />} />
-                <Route path="income" element={<Income />} />
+                <Route index element={<YearPage />} />
+                <Route path="month" element={<Income />} />
                 <Route path="settings" element={<Settings />} />
               </Route>
             </Route>
