@@ -1,5 +1,5 @@
 import { GaugeComponent } from "react-gauge-component";
-import React, { PureComponent } from "react";
+import React, { PureComponent, useEffect, useState } from "react";
 import {
   ComposedChart,
   Line,
@@ -7,11 +7,12 @@ import {
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
-  Scatter,
   ResponsiveContainer,
+  Pie,
+  PieChart,
+  Cell,
   BarChart,
 } from "recharts";
 
@@ -19,20 +20,60 @@ import { CaretUp, LineVertical } from "@phosphor-icons/react";
 import Card from "../components/Card";
 
 const data = [
-  { month: "Jan", sales: 4000 },
-  { month: "Feb", sales: 3000 },
-  { month: "Mar", sales: 5000 },
-  { month: "Apr", sales: 7000 },
-  { month: "May", sales: 6000 },
+  {
+    name: "Page A",
+    income: 4000,
+    expense: 2400,
+    save: 1600,
+  },
 ];
 
 const Dashboard = () => {
+  const [monthData, setMonthData] = useState<any>([]);
+  const [yearData, setYearData] = useState<any>([]);
+  const [expenseData, setExpenseData] = useState<any>([]);
+  const [incomeData, setIncomeData] = useState<any>([]);
+
+  useEffect(() => {
+    const monthData = [
+      { month: "Jan", income: 4000, expense: 3200, save: 800 },
+      { month: "Feb", income: 3000, expense: 1500, save: 1500 },
+      { month: "Mar", income: 5000, expense: 4500, save: 500 },
+      { month: "Apr", income: 7000, expense: 2600, save: 4400 },
+      { month: "May", income: 6000, expense: 3400, save: 1600 },
+      { month: "Jun", income: 6000, expense: 4125, save: 1875 },
+      { month: "Jul", income: 4570, expense: 7000, save: 1200 },
+      { month: "Aug", income: 9700, expense: 2000, save: 7700 },
+      { month: "Sep", income: 8430, expense: 6700, save: 1730 },
+      { month: "Oct", income: 4800, expense: 9800, save: 1300 },
+      { month: "Nov", income: 7000, expense: 1200, save: 5800 },
+      { month: "Dec", income: 1000, expense: 1800, save: 0 },
+    ];
+    const yearData = [
+      { name: "random", income: 7000, expense: 5000 }, // Customize color
+    ];
+    setMonthData(monthData);
+    setYearData(yearData);
+    setExpenseData([
+      { name: "groceries", value: 7000, color: "#8884d8" }, // Customize color
+      { name: "gas", value: 1000, color: "#82ca9d" }, // Customize color
+      { name: "car insurance", value: 1800, color: "#EDA62D" }, // Customize color
+      { name: "rent", value: 4500, color: "#47D1FF" }, // Customize color
+    ]);
+    setIncomeData([
+      { name: "job", value: 85000, color: "#8884d8" }, // Customize color
+      { name: "tax return", value: 3700, color: "#82ca9d" }, // Customize color
+      { name: "gift", value: 800, color: "#EDA62D" }, // Customize color
+      { name: "tutor", value: 4500, color: "#47D1FF" }, // Customize color
+    ]);
+  }, []);
+
   return (
     <div className="flex flex-col gap-3 h-screen">
       <div className="flex flex-wrap gap-3 w-full">
         <Card
           title="Bank Balance"
-          className="flex-grow flex flex-col items-center text-center"
+          className="flex-grow flex-1 flex flex-col items-center text-center "
         >
           <div className="text-secondary">
             <p className="text-2xl font-bold mb-2">$12,500</p>
@@ -45,17 +86,337 @@ const Dashboard = () => {
             </div>
           </div>
         </Card>
-        <Card title="Revenue" className="flex-grow text-center">
+        <Card title="Yearly Revenue" className="flex-grow flex-1 text-center">
           <p className="text-2xl font-bold">$7,500</p>
         </Card>
-        <Card title="Tax Deductions" className="flex-grow text-center">
+        <Card
+          title="Yearly Tax Deductions"
+          className="flex-grow flex-1 text-center"
+        >
           <p className="text-2xl font-bold">$1,500</p>
         </Card>
-        <Card title="Expenses" className="flex-grow text-center">
+        <Card title="Expenses" className="flex-grow flex-1 text-center">
           <p className="text-2xl font-bold">$2,500</p>
         </Card>
-        <Card title="Saving" className="flex-grow text-center">
+        <Card title="Saving" className="flex-grow flex-1 text-center">
           <p className="text-2xl font-bold">$5,000</p>
+        </Card>
+        <Card title="Goal" className="flex-grow flex-1 text-center">
+          <div className="flex gap-1 flex-col">
+            <div className="flex gap-1 justify-between">
+              <p className="text-xs font-bold">Buying House</p>
+              <p className="text-xs font-bold">50%</p>
+            </div>
+            <div className="flex gap-1 justify-between">
+              <p className="text-xs font-bold">Buying Car</p>
+              <p className="text-xs font-bold">1%</p>
+            </div>
+            <div className="flex gap-1 justify-between">
+              <p className="text-xs font-bold">Buying Land</p>
+              <p className="text-xs font-bold">0%</p>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <div className="flex flex-wrap gap-3">
+        <Card
+          title="Expenses Breakdown"
+          className="flex-grow flex-1 text-center"
+        >
+          <div className="w-full h-65">
+            <ResponsiveContainer width={"100%"} height={"100%"}>
+              <PieChart>
+                <Pie
+                  data={expenseData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={45}
+                  outerRadius={80}
+                  label={({ x, y, value, percent, index }) => {
+                    const entry = expenseData[index];
+                    return (
+                      <text
+                        x={x}
+                        y={y}
+                        textAnchor="middle"
+                        dominantBaseline="central"
+                        fontFamily="Inter"
+                        fill={entry.color}
+                        className="text-xs"
+                      >
+                        {`$${value.toLocaleString()}`}
+                      </text>
+                    );
+                  }}
+                  labelLine={false}
+                >
+                  {expenseData.map((entry: any, index: any) => (
+                    <Cell key={index} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  content={({ payload }) => (
+                    <div className="p-2 border border-disable bg-secondary rounded-lg text-primary text-xs">
+                      {payload && payload.length ? (
+                        payload.map((entry, index) => (
+                          <div key={index} className="">
+                            <span>{entry.name}: </span>
+                            <span>${entry.value?.toLocaleString()}</span>
+                          </div>
+                        ))
+                      ) : (
+                        <div>No data available</div>
+                      )}
+                    </div>
+                  )}
+                />
+                <Legend
+                  wrapperStyle={{
+                    fontSize: "12px",
+                    fontFamily: "Inter",
+                    color: "#333",
+                  }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </Card>
+
+        <Card
+          title="Income Breakdown"
+          className="flex-grow flex-1 text-center"
+        >
+          <div className="w-full h-60">
+            <ResponsiveContainer width="100%" height="100%">
+              <ResponsiveContainer width={"100%"}>
+                <PieChart>
+                  <Pie
+                    data={incomeData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={45}
+                    outerRadius={80}
+                    label={({ x, y, value, percent, index }) => {
+                      const entry = incomeData[index];
+                      return (
+                        <text
+                          x={x}
+                          y={y}
+                          textAnchor="middle"
+                          dominantBaseline="central"
+                          fontFamily="Inter"
+                          fill={entry.color}
+                          className="text-xs"
+                        >
+                          {`$${value.toLocaleString()}`}
+                        </text>
+                      );
+                    }}
+                    labelLine={false}
+                  >
+                    {incomeData.map((entry: any, index: any) => (
+                      <Cell key={index} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    content={({ payload }) => (
+                      <div className="p-2 border border-disable bg-secondary rounded-lg text-primary text-xs">
+                        {payload && payload.length ? (
+                          payload.map((entry, index) => (
+                            <div key={index} className="">
+                              <span>{entry.name}: </span>
+                              <span>${entry.value?.toLocaleString()}</span>
+                            </div>
+                          ))
+                        ) : (
+                          <div>No data available</div>
+                        )}
+                      </div>
+                    )}
+                  />
+                  <Legend
+                    wrapperStyle={{
+                      fontSize: "12px",
+                      fontFamily: "Inter",
+                      color: "#333",
+                    }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+
+              {/* <BarChart
+                width={500}
+                height={300}
+                data={data}
+                margin={{
+                  top: 20,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+                barGap={20}
+                barSize={30}
+              >
+                <XAxis dataKey="name" tick={false} />
+                <Legend
+                  wrapperStyle={{
+                    fontSize: "12px",
+                    fontFamily: "Inter",
+                    color: "#333",
+                  }}
+                />
+                <Bar
+                  dataKey="income"
+                  fill="#8884d8"
+                  label={({ payload, x, y, value }) => (
+                    <text
+                      x={x + 30 / 2}
+                      y={y}
+                      fill="#8884d8"
+                      dy={-6}
+                      textAnchor="middle"
+                      className="text-xs"
+                    >
+                      ${value.toLocaleString()}
+                    </text>
+                  )}
+                />
+                <Bar
+                  dataKey="expense"
+                  fill="#82ca9d"
+                  label={({ payload, x, y, value }) => (
+                    <text
+                      x={x + 30 / 2}
+                      y={y}
+                      fill="#82ca9d"
+                      dy={-6}
+                      textAnchor="middle"
+                      className="text-xs"
+                    >
+                      ${value.toLocaleString()}
+                    </text>
+                  )}
+                />
+                <Bar
+                  dataKey="save"
+                  fill="#eda62d"
+                  label={({ payload, x, y, value }) => (
+                    <text
+                      x={x + 30 / 2}
+                      y={y}
+                      fill="#eda62d"
+                      dy={-6}
+                      textAnchor="middle"
+                      className="text-xs"
+                    >
+                      ${value.toLocaleString()}
+                    </text>
+                  )}
+                />
+              </BarChart> */}
+            </ResponsiveContainer>
+
+            {/* <ResponsiveContainer width={"100%"}>
+              <BarChart
+                data={yearData}
+                barCategoryGap={"20%"}
+                margin={{ left: -20 }}
+              >
+                <XAxis dataKey={"name"} tick={{ fontSize: "12px" }} />
+                <YAxis
+                  tick={{ fontSize: "12px", fontFamily: "Inter" }}
+                  tickFormatter={(value) => `$${value / 1000}K`}
+                />
+                <Tooltip
+                  content={({ payload }) => (
+                    <div className="p-2 border border-disable bg-secondary rounded-lg text-primary text-xs">
+                      <p className="font-bold">Tooltip</p>
+                      {payload && payload.length ? (
+                        payload.map((entry, index) => (
+                          <div key={index} className="">
+                            <span>{entry.name}: </span>
+                            <span>${entry.value?.toLocaleString()}</span>
+                          </div>
+                        ))
+                      ) : (
+                        <div>No data available</div>
+                      )}
+                    </div>
+                  )}
+                />
+
+                <Legend
+                  wrapperStyle={{
+                    fontSize: "12px",
+                    fontFamily: "Inter",
+                    color: "#333",
+                  }}
+                />
+                <Bar dataKey={"income"} stackId={"a"} fill="#8884d8" />
+                <Bar dataKey={"expense"} stackId={"a"} fill="#82ca9d" />
+              </BarChart>
+            </ResponsiveContainer> */}
+          </div>
+        </Card>
+
+        <Card
+          title="Net Income vs Expenses - Yearly"
+          className="flex-grow-2 flex-1 text-center"
+        >
+          <div className="w-full h-60">
+            <ResponsiveContainer width={"100%"}>
+              <ComposedChart
+                data={monthData}
+                barCategoryGap={"20%"}
+                margin={{ left: -20 }}
+              >
+                <XAxis dataKey={"month"} tick={{ fontSize: "12px" }} />
+                <YAxis
+                  tick={{ fontSize: "12px", fontFamily: "Inter" }}
+                  tickFormatter={(value) => `$${value / 1000}K`}
+                />
+                <Tooltip
+                  content={({ payload }) => (
+                    <div className="p-2 border border-disable bg-secondary rounded-lg text-primary text-xs">
+                      {payload && payload.length ? (
+                        payload.map((entry, index) => (
+                          <div key={index} className="">
+                            <span>{entry.name}: </span>
+                            <span>${entry.value?.toLocaleString()}</span>
+                          </div>
+                        ))
+                      ) : (
+                        <div>No data available</div>
+                      )}
+                    </div>
+                  )}
+                />
+
+                <Legend
+                  wrapperStyle={{
+                    fontSize: "12px",
+                    fontFamily: "Inter",
+                    color: "#333",
+                  }}
+                />
+                <Bar dataKey={"income"} stackId={"a"} fill="#8884d8" />
+                <Bar dataKey={"expense"} stackId={"a"} fill="#82ca9d" />
+                <Line type="monotone" dataKey="save" stroke="#ff7300" />
+              </ComposedChart>
+            </ResponsiveContainer>
+          </div>
+        </Card>
+
+        <Card
+          title="Income vs Expenses"
+          className="flex-grow flex-1 text-center"
+        >
+          Test
         </Card>
       </div>
 

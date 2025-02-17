@@ -7,19 +7,20 @@ Reference to create dark/light theme: https://tailwindcss.com/docs/colors#refere
 :root {
   --custom-color-primary: #ffffff; /* Light primary color */
   --custom-color-secondary: #000000; /* Darker secondary color */
-  --custom-color-tertiary: #000000;
-  --custom-color-quaternary: #32a461;
-  --custom-color-accent: #32a461; /* Accent color (e.g., green or bright) */
-  --custom-color-hover: #edf1fe1a; /* Light hover color */
-  --custom-color-disable: #d1d5db; /* Lighter disabled color */
+  --custom-color-tertiary: #f4f7fC;
+  --custom-color-quaternary: #FFFFFF;
+  --custom-color-quinary: #07DF72;
+  --custom-color-accent: #07DF72; /* Accent color (e.g., green or bright) */
+  --custom-color-hover: #A3F1CE33; /* Light hover color */
+  --custom-color-disable: #bfc3c9; /* Lighter disabled color */
 }
 
 /* Data-theme must be placed after :root; otherwise, root will take priority */
 [data-theme="dark"] {
   --custom-color-primary: #000000; /* primary theme is completely dark, which is #000000 */
   --custom-color-secondary: #ffffff; /* completely contrast to primary theme, which is #ffffff */
-  --custom-color-tertiary: #181D26; /* used for background */
-  --custom-color-quaternary: #202936; /* used for cards */
+  --custom-color-tertiary: #141820; /* used for background */
+  --custom-color-quaternary: #303443; /* used for cards */
   --custom-color-quinary: #07DF72;
   --custom-color-accent: #ffffff;
   --custom-color-hover: #edf1fe1a;
