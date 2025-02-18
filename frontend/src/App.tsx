@@ -8,9 +8,10 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ProtectedRoutes from "./pages/ProtectedRoute";
 import RegisterPage from "./pages/RegisterPage";
 import { YearPage } from "./pages/YearPage";
-import Income from "./pages/IncomePage";
+import { MonthPage } from "./pages/MonthPage";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { Settings } from "./pages/Settings";
+import { ExpensePage } from "./pages/ExpensePage";
 
 const App: React.FC = () => {
   return (
@@ -21,7 +22,8 @@ const App: React.FC = () => {
             <Route element={<ProtectedRoutes />}>
               <Route path="/" element={<HomePage />}>
                 <Route index element={<YearPage />} />
-                <Route path="month" element={<Income />} />
+                <Route path="month" element={<MonthPage />} />
+                <Route path="expense" element={<ExpensePage />} />
                 <Route path="settings" element={<Settings />} />
               </Route>
             </Route>
