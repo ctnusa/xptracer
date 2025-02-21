@@ -1,17 +1,17 @@
 import { ApolloProvider } from "@apollo/client";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import client from "./apolloClient";
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import ProtectedRoutes from "./pages/ProtectedRoute";
-import RegisterPage from "./pages/RegisterPage";
-import { YearPage } from "./pages/YearPage";
-import { MonthPage } from "./pages/MonthPage";
-import { ThemeProvider } from "./contexts/ThemeContext";
-import { Settings } from "./pages/Settings";
-import { ExpensePage } from "./pages/ExpensePage";
+import client from "../apolloClient";
+import HomePage from "../pages/HomePage";
+import LoginPage from "../pages/LoginPage";
+import NotFoundPage from "../pages/NotFoundPage";
+import ProtectedRoutes from "../pages/ProtectedRoute";
+import RegisterPage from "../pages/RegisterPage";
+import { YearPage } from "../pages/YearPage";
+import { MonthPage } from "../pages/MonthPage";
+import { ThemeProvider } from "../contexts/ThemeContext";
+import { Settings } from "../pages/Settings";
+import { ExpensePage } from "../pages/ExpensePage";
 
 const App: React.FC = () => {
   return (
