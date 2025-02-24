@@ -1,8 +1,12 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
-import { configureStore } from "@reduxjs/toolkit";
+import { combineSlices, configureStore } from "@reduxjs/toolkit";
+import { authSlice } from "../features/auth/authSlice";
+import { userSlice } from "../features/user/userSlice";
+
+const rootReducer = combineSlices(authSlice, userSlice);
 
 export const store = configureStore({
-  reducer: {},
+  reducer: rootReducer
 });
 
 export type AppStore = typeof store;

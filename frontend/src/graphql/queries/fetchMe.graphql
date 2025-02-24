@@ -1,0 +1,9 @@
+query FetchMe() {
+    ok
+    me {
+        username,
+        email,
+        firstName,
+        lastName
+    }
+}

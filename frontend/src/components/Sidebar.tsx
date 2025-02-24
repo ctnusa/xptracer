@@ -1,17 +1,18 @@
 import {
   CaretDoubleLeft,
   CaretDoubleRight,
+  ChartBar,
+  CreditCard,
   Gear,
   House,
   Icon,
-  SignOut,
   Money,
-  CreditCard,
-  ChartBar,
+  SignOut,
 } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useLogoutUserMutation } from "../graphql/generated";
+import { useAppDispatch } from "../app/hooks";
+import { logoutAsync } from "../features/auth/authThunks";
 
 interface MenuItem {
   name: string;
@@ -28,18 +29,17 @@ const menuItems: MenuItem[] = [
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [activeItem, setActiveItem] = useState<string | null>(null);
-  const [logout] = useLogoutUserMutation();
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
+  const dispatch = useAppDispatch();
 
   const handleLogout = async () => {
     try {
-      const { data } = await logout();
-      if (data?.logoutUser?.ok) {
-        localStorage.removeItem("token");
+      const result = await dispatch(logoutAsync());
+      if (logoutAsync.fulfilled.match(result)) {
         navigate("/login");
       } else {
-        // setError("Unable to logout");
+        // Handle error
       }
     } catch (err) {
       console.error("Logout error:", err);
@@ -47,7 +47,7 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
-    setActiveItem(location.pathname)
+    setActiveItem(location.pathname);
   }, [location.pathname]);
 
   return (
@@ -118,7 +118,9 @@ const Sidebar = () => {
         <div className="flex flex-col px-1">
           <Link
             className={`flex gap-2 p-2 rounded-md cursor-pointer relative group ${
-              activeItem === "/settings" ? "bg-accent text-primary" : "hover:bg-hover"
+              activeItem === "/settings"
+                ? "bg-accent text-primary"
+                : "hover:bg-hover"
             }`}
             onClick={() => setActiveItem("/settings")}
             to={"/settings"}

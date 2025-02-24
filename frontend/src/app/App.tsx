@@ -12,28 +12,32 @@ import { MonthPage } from "../pages/MonthPage";
 import { ThemeProvider } from "../contexts/ThemeContext";
 import { Settings } from "../pages/Settings";
 import { ExpensePage } from "../pages/ExpensePage";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 const App: React.FC = () => {
   return (
-    <ApolloProvider client={client}>
-      <ThemeProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<ProtectedRoutes />}>
-              <Route path="/" element={<HomePage />}>
-                <Route index element={<YearPage />} />
-                <Route path="month" element={<MonthPage />} />
-                <Route path="expense" element={<ExpensePage />} />
-                <Route path="settings" element={<Settings />} />
+    <Provider store={store}>
+      <ApolloProvider client={client}>
+        <ThemeProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route element={<ProtectedRoutes />}>
+                <Route path="/" element={<HomePage />}>
+                  <Route index element={<YearPage />} />
+                  <Route path="month" element={<MonthPage />} />
+                  <Route path="expense" element={<ExpensePage />} />
+                  <Route path="settings" element={<Settings />} />
+                </Route>
               </Route>
-            </Route>
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </BrowserRouter>
-      </ThemeProvider>
-    </ApolloProvider>
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </BrowserRouter>
+        </ThemeProvider>
+      </ApolloProvider>
+    </Provider>
   );
 };
 

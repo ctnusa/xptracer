@@ -59,8 +59,6 @@ class RegisterUser(graphene.Mutation):
         """
         from src import bcrypt
 
-        # from src.dbs import db
-
         try:
             RegisterUser.__validate_username(input.username)
             RegisterUser.__validate_email(input.email)
@@ -91,8 +89,6 @@ class RegisterUser(graphene.Mutation):
         Raises:
             ValueError: If the username is invalid.
         """
-        # from backend.src.dbs import db
-
         if " " in username:
             raise ValueError("Username cannot contain spaces.")
         if len(username) < 3 or len(username) > 20:
@@ -130,8 +126,6 @@ class RegisterUser(graphene.Mutation):
         Raises:
             ValueError: If the email is invalid.
         """
-        # from backend.src.dbs import db
-
         try:
             validate_email(email)
         except EmailNotValidError:
