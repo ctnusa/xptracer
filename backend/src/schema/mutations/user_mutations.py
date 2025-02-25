@@ -2,6 +2,7 @@ import datetime
 import re
 import string
 
+from flask_jwt_extended import create_access_token
 import graphene
 import jwt
 from email_validator import EmailNotValidError, validate_email
@@ -177,10 +178,7 @@ class LoginUser(graphene.Mutation):
         user = db.session.query(UserModel).filter_by(username=username).first()
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
-            token = jwt.encode({
-                "user_id": user.id,
-                "exp": datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=10)
-            }, current_app.config["SECRET_KEY"], algorithm="HS256")
+            token = create_access_token(identity=username, expires_delta=datetime.timedelta(days=10))
             return LoginUser(ok=True, token=token)
         return LoginUser(ok=False, message="Invalid username or password.")
 

@@ -395,12 +395,9 @@ export const YearPage = () => {
                     tooltip: {
                       text: "Too low temperature!",
                     },
-                    onClick: () =>
-                      console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
-                    onMouseMove: () =>
-                      console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"),
-                    onMouseLeave: () =>
-                      console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"),
+                    onClick: () => {},
+                    onMouseMove: () => {},
+                    onMouseLeave: () => {},
                   },
                   {
                     limit: 17,

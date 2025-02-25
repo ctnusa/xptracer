@@ -1,5 +1,6 @@
-from src.schema.queries.user_queries import UserQuery
+import graphene
+from src.schema.queries.user_queries import MeQuery
 
 
-class Query(UserQuery):
+class Query(MeQuery, graphene.ObjectType):
     pass

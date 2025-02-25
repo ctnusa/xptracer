@@ -1,9 +1,8 @@
-query FetchMe() {
-    ok
+query FetchMe {
     me {
         username,
         email,
-        firstName,
-        lastName
+        firstname,
+        lastname
     }
 }

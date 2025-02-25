@@ -1,5 +1,7 @@
 from http import HTTPStatus
 
+from flask_jwt_extended import JWTManager
+
 from src.config import app_config
 from src.extension import db
 from src.schema import schema
@@ -32,6 +34,7 @@ def create_app(env):
 
     bcrypt.init_app(app)
     db.init_app(app)
+    jwt = JWTManager(app)
     CORS(app)
 
     with app.app_context():

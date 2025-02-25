@@ -37,18 +37,21 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchMeAsync.pending, (state) => {
-      state.loading = true;
-    }).addCase(fetchMeAsync.fulfilled, (state, action) => {
-      state.loading = false;
-      state.username = action.payload.username;
-      state.email = action.payload.email;
-      state.firstname = action.payload.firstname;
-      state.lastname = action.payload.lastname;
-    }).addCase(fetchMeAsync.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload as string;
-    })
+    builder
+      .addCase(fetchMeAsync.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchMeAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.username = action.payload.username;
+        state.email = action.payload.email;
+        state.firstname = action.payload.firstname;
+        state.lastname = action.payload.lastname;
+      })
+      .addCase(fetchMeAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
   },
 });
 

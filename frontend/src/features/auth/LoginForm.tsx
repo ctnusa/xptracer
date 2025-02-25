@@ -8,8 +8,8 @@ import {
 import { loginAsync } from "./authThunks";
 
 export const LoginForm: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('tamcn2603');
+  const [password, setPassword] = useState('@tamCn2222');
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectLoading); // TODO: create a loading button later

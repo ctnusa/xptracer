@@ -1,17 +1,22 @@
+from flask_jwt_extended import get_jwt_identity, jwt_required
 import graphene
+from src.models.user_model import UserModel
 from src.schema.types.user_types import User
+from src.extension import db
 
-class UserQuery(graphene.ObjectType):
+
+class MeQuery(graphene.ObjectType):
     """
     The UserQuery class defines the GraphQL query for retrieving user information.
 
     Attributes:
         user (graphene.Field): Field for retrieving a user.
     """
-    
-    user = graphene.Field(User)
 
-    def resolve_user(root, info):
+    me = graphene.Field(User)
+
+    @jwt_required()
+    def resolve_me(root, info):
         """
         Resolve the user query.
 
@@ -22,4 +27,5 @@ class UserQuery(graphene.ObjectType):
         Returns:
             User: A user object with predefined firstname and lastname.
         """
-        return User(firstname="Chi Tam", lastname="Nguyen")
+        current_user = get_jwt_identity()
+        return db.session.query(UserModel).filter_by(username=current_user).first()
