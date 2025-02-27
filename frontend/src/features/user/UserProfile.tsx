@@ -1,0 +1,221 @@
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  selectEmail,
+  selectFirstname,
+  selectLastname,
+  selectUsername,
+} from "../user/userSelectors";
+import { useAppSelector } from "@/app/hooks";
+import { Button } from "@/components/ui/button";
+
+export const UserProfile: React.FC = () => {
+  const username = useAppSelector(selectUsername);
+  const email = useAppSelector(selectEmail);
+  const lastname = useAppSelector(selectLastname);
+  const firstname = useAppSelector(selectFirstname);
+
+  return (
+    <div className="flex flex-col gap-2 ">
+      <Card className="max-w-3xl w-2xl mx-auto">
+        <CardHeader>
+          <CardTitle>Profile</CardTitle>
+        </CardHeader>
+        <CardContent className="max-w-65 flex flex-col gap-2">
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              {firstname}
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              {lastname}
+            </Label>
+          </div>
+
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Last Name
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Nguyen
+            </Label>
+          </div>
+
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Email
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              cnguyen2603@berkeley.edu
+            </Label>
+          </div>
+
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Phone
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              (510) 990-1234
+            </Label>
+          </div>
+
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Bio
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Product Designer
+            </Label>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="max-w-3xl w-2xl mx-auto">
+        <CardHeader>
+          <CardTitle className="flex justify-between items-center">
+            <div>Personal Information</div>
+            <Button>Edit</Button>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="max-w-65 flex flex-col gap-2">
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Username
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              {username}
+            </Label>
+          </div>
+
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              First Name
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              {firstname}
+            </Label>
+          </div>
+
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Last Name
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              {lastname}
+            </Label>
+          </div>
+
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Email
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              {email}
+            </Label>
+          </div>
+
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Phone
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              (510) 990-1234
+            </Label>
+          </div>
+
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Bio
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Product Designer
+            </Label>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="max-w-3xl min-w-2xl mx-auto">
+        <CardHeader>
+          <CardTitle>Address</CardTitle>
+        </CardHeader>
+        <CardContent className="max-w-65 flex flex-col gap-2">
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Street
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              1975 Brantley Drive
+            </Label>
+          </div>
+
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Country
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              United States of America
+            </Label>
+          </div>
+
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              City
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              San Jose
+            </Label>
+          </div>
+
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              State
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              California
+            </Label>
+          </div>
+
+          <div className="flex justify-between items-center">
+            {/* Label for Language */}
+            <Label htmlFor="name" className="text-xs">
+              Postal Code
+            </Label>
+            {/* Select for Language */}
+            <Label htmlFor="name" className="text-xs">
+              95131
+            </Label>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};

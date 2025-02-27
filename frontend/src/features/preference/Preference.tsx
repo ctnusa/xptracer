@@ -119,20 +119,6 @@ export const Preference: React.FC = () => {
                   ))}
                 </SelectContent>
               </Select>
-
-              {/* <Select>
-                <SelectTrigger className="text-xs h-8">
-                  <SelectValue placeholder="Select" className="text-xs" />
-                </SelectTrigger>
-                <SelectContent position="popper">
-                  <SelectItem value="usd" className="text-xs">
-                    USD
-                  </SelectItem>
-                  <SelectItem value="vnd" className="text-xs">
-                    VND
-                  </SelectItem>
-                </SelectContent>
-              </Select> */}
             </div>
           </div>
         </CardContent>
