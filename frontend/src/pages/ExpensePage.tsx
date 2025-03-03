@@ -1,6 +1,6 @@
+import { Draggable } from "@/components/Draggable";
+import { Droppable } from "@/components/Droppable";
 import { DndContext } from "@dnd-kit/core";
-import { Draggable } from "../components/Draggable";
-import { Droppable } from "../components/Droppable";
 import { useState } from "react";
 
 

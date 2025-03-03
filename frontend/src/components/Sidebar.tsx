@@ -52,7 +52,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`flex flex-col justify-between h-screen text-sm transition-all duration-300 border-solid border-r-1 border-disable text-secondary items-start shadow-sm bg-quaternary px-1 ${
+      className={`flex flex-col justify-between h-screen text-sm transition-all duration-300 border-foreground border-solid border-r-1 border-disable items-start shadow-sm bg-background px-1 ${
         isOpen ? "w-64" : "w-13"
       }`}
     >
@@ -62,7 +62,7 @@ const Sidebar = () => {
         }`}
       >
         <img src="/vite.svg" alt="Logo" className="w-8.5" />
-        {isOpen && <span className="text-lg">Xptracer</span>}
+        {isOpen && <span className="text-lg ">Xptracer</span>}
         <button
           className={`${
             isOpen ? "ml-auto" : ""
@@ -88,9 +88,9 @@ const Sidebar = () => {
         {menuItems.map((item) => (
           <Link
             key={item.name}
-            className={`flex gap-2 rounded-md w-full p-2 cursor-pointer relative group ${
+            className={`flex gap-2 rounded-md w-full p-2 cursor-pointer  relative group ${
               activeItem === item.path
-                ? "bg-accent text-primary"
+                ? "bg-accent"
                 : "hover:bg-hover"
             }`}
             onClick={() => setActiveItem(item.path!!)}
@@ -117,9 +117,9 @@ const Sidebar = () => {
         </p>
         <div className="flex flex-col px-1">
           <Link
-            className={`flex gap-2 p-2 rounded-md cursor-pointer relative group ${
+            className={`flex gap-2 p-2 rounded-md cursor-pointer relative group  ${
               activeItem === "/settings"
-                ? "bg-accent text-primary"
+                ? "bg-accent"
                 : "hover:bg-hover"
             }`}
             onClick={() => setActiveItem("/settings")}
@@ -134,7 +134,7 @@ const Sidebar = () => {
             {isOpen && <span>Settings</span>}
           </Link>
           <button
-            className="flex gap-2 p-2 rounded-md cursor-pointer relative group hover:bg-hover"
+            className="flex gap-2 p-2 rounded-md cursor-pointer relative group hover:bg-hover "
             onClick={() => handleLogout()}
           >
             <SignOut size={20} className="shrink-0" />

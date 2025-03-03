@@ -16,6 +16,15 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 
 const App: React.FC = () => {
+  // Set font size from local storage
+  const fontSize = localStorage.getItem("font-size");
+  if (fontSize) {
+    const fontSize = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue(localStorage.getItem("font-size") || "xptracer-font-size-xs");
+    document.documentElement.style.setProperty("font-size", fontSize);
+  }
+
   return (
     <Provider store={store}>
       <ApolloProvider client={client}>

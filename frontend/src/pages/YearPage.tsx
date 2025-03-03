@@ -1,70 +1,26 @@
+import React, { useEffect, useState } from "react";
 import { GaugeComponent } from "react-gauge-component";
-import React, { PureComponent, useEffect, useState } from "react";
 import {
-  ComposedChart,
-  Line,
-  Area,
   Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
+  BarChart,
+  Cell,
+  ComposedChart,
   Legend,
-  ResponsiveContainer,
+  Line,
+  LineChart,
   Pie,
   PieChart,
-  Cell,
-  BarChart,
-  LineChart,
-  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
 } from "recharts";
 
-import { CaretUp, LineVertical } from "@phosphor-icons/react";
-import Card from "../components/Card";
-
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+import {
+  Card,
+  CardContent, CardHeader,
+  CardTitle
+} from "@/components/ui/card";
 
 export const YearPage = () => {
   const [monthData, setMonthData] = useState<any>([]);
@@ -73,6 +29,31 @@ export const YearPage = () => {
   const [budgetActualData, setBudgetActualData] = useState<any>([]);
   const [investmentData, setInvestmentData] = useState<any>([]);
   const [investmentTrendData, setInvestmentTrendData] = useState<any>([]);
+
+  const frameworks = [
+    {
+      value: "next.js",
+      label: "Next.js",
+    },
+    {
+      value: "sveltekit",
+      label: "SvelteKit",
+    },
+    {
+      value: "nuxt.js",
+      label: "Nuxt.js",
+    },
+    {
+      value: "remix",
+      label: "Remix",
+    },
+    {
+      value: "astro",
+      label: "Astro",
+    },
+  ];
+  const [open, setOpen] = React.useState(false);
+  const [value, setValue] = React.useState("");
 
   useEffect(() => {
     const monthData = [
@@ -133,65 +114,92 @@ export const YearPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-3 w-full h-full">
-      <div className="flex flex-wrap gap-3 w-full">
-        <Card title="Year" className="flex-grow flex-1 text-center">
-          <select name="" id="" className="text-2xl font-bold">
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-          </select>
+    <div className="flex flex-col w-full h-screen gap-1.5 p-2">
+      <div className="flex flex-wrap gap-1.5 w-full grow-1 basis-0">
+        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4">
+          <CardHeader>
+            <CardTitle className="text-sm">Profile</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <select name="" id="" className="text-lg font-bold">
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+            </select>
+          </CardContent>
         </Card>
-        <Card
-          title="Gross Revenue"
-          className="flex-grow flex-1 flex flex-col items-center text-center "
-        >
-          <p className="text-2xl font-bold mb-2">$12,500</p>
-          {/* <div className="text-secondary">
-            <p className="text-2xl font-bold mb-2">$12,500</p>
-            <div className="flex gap-2 text-quinary">
-              <CaretUp size={20} weight="fill" className="" />
-              <p className="">$12,300</p>
-              |
-              <CaretUp size={20} weight="fill" className="" />
-              <p className="">30%</p>
+
+        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4">
+          <CardHeader>
+            <CardTitle className="text-sm">Year</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2 flex-grow flex-1 items-center text-center">
+            <p className="text-lg font-bold mb-2">$12,500</p>
+          </CardContent>
+        </Card>
+
+        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4">
+          <CardHeader>
+            <CardTitle className="text-sm">Gross Revenue</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2 flex-grow flex-1 items-center text-center">
+            <p className="text-lg font-bold">$7,500</p>
+          </CardContent>
+        </Card>
+
+        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4">
+          <CardHeader>
+            <CardTitle className="text-sm">Net Revenue</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2 flex-grow flex-1 items-center text-center">
+            <p className="text-lg font-bold">$1,500</p>
+          </CardContent>
+        </Card>
+
+        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4">
+          <CardHeader>
+            <CardTitle className="text-sm">Tax Deductions</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2 flex-grow flex-1 items-center text-center">
+            <p className="text-lg font-bold">$2,500</p>
+          </CardContent>
+        </Card>
+
+        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4">
+          <CardHeader>
+            <CardTitle className="text-sm">Expenses</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2 flex-grow flex-1 items-center text-center">
+            <p className="text-lg font-bold">$5,000</p>
+          </CardContent>
+        </Card>
+
+        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4">
+          <CardHeader>
+            <CardTitle className="text-sm">Saving</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2 flex-grow flex-1 items-center text-center">
+            <div className="flex gap-1 flex-col">
+              <div className="flex gap-1 justify-between">
+                <p className="text-xs font-bold">Buying House</p>
+                <p className="text-xs font-bold">50%</p>
+              </div>
+              <div className="flex gap-1 justify-between">
+                <p className="text-xs font-bold">Buying Car</p>
+                <p className="text-xs font-bold">1%</p>
+              </div>
             </div>
-          </div> */}
-        </Card>
-        <Card title="Net Revenue" className="flex-grow flex-1 text-center">
-          <p className="text-2xl font-bold">$7,500</p>
-        </Card>
-        <Card title="Tax Deductions" className="flex-grow flex-1 text-center">
-          <p className="text-2xl font-bold">$1,500</p>
-        </Card>
-        <Card title="Expenses" className="flex-grow flex-1 text-center">
-          <p className="text-2xl font-bold">$2,500</p>
-        </Card>
-        <Card title="Saving" className="flex-grow flex-1 text-center">
-          <p className="text-2xl font-bold">$5,000</p>
-        </Card>
-        <Card title="Goal" className="flex-grow flex-1 text-center">
-          <div className="flex gap-1 flex-col">
-            <div className="flex gap-1 justify-between">
-              <p className="text-xs font-bold">Buying House</p>
-              <p className="text-xs font-bold">50%</p>
-            </div>
-            <div className="flex gap-1 justify-between">
-              <p className="text-xs font-bold">Buying Car</p>
-              <p className="text-xs font-bold">1%</p>
-            </div>
-            <div className="flex gap-1 justify-between">
-              <p className="text-xs font-bold">Buying Land</p>
-              <p className="text-xs font-bold">0%</p>
-            </div>
-          </div>
+          </CardContent>
         </Card>
       </div>
 
-      <div className="flex flex-wrap gap-3">
-        <Card title="Expenses Breakdown" className="flex-2 text-center">
-          <div className="w-full h-50">
-            <ResponsiveContainer width={"100%"} height={"100%"}>
+      <div className="flex flex-wrap gap-1.5 grow-3 basis-0">
+        <Card className="flex flex-1 text-center rounded-sm min-w-60 min-h-60 gap-1 p-4">
+          <CardHeader>
+            <CardTitle className="text-sm">Expenses Breakdown</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2 flex-grow flex-1 items-center text-center">
+            <ResponsiveContainer>
               <PieChart>
                 <Pie
                   data={expenseData}
@@ -249,12 +257,15 @@ export const YearPage = () => {
                 />
               </PieChart>
             </ResponsiveContainer>
-          </div>
+          </CardContent>
         </Card>
 
-        <Card title="Income Breakdown" className="flex-2 text-center">
-          <div className="w-full h-50">
-            <ResponsiveContainer width={"100%"}>
+        <Card className="flex flex-1 text-center rounded-sm min-w-60  min-h-60 gap-1 p-4">
+          <CardHeader>
+            <CardTitle className="text-sm">Income Breakdown</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2 flex-grow flex-1 items-center text-center">
+            <ResponsiveContainer>
               <PieChart>
                 <Pie
                   data={incomeData}
@@ -312,12 +323,15 @@ export const YearPage = () => {
                 />
               </PieChart>
             </ResponsiveContainer>
-          </div>
+          </CardContent>
         </Card>
 
-        <Card title="Investment Breakdown" className="flex-2 text-center">
-          <div className="w-full h-50">
-            <ResponsiveContainer width={"100%"}>
+        <Card className="flex flex-1 text-center rounded-sm min-w-60 min-h-60  gap-1 p-4">
+          <CardHeader>
+            <CardTitle className="text-sm">Investment Breakdown</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col gap-2 flex-grow flex-1 items-center text-center">
+            <ResponsiveContainer>
               <PieChart>
                 <Pie
                   data={investmentData}
@@ -375,18 +389,23 @@ export const YearPage = () => {
                 />
               </PieChart>
             </ResponsiveContainer>
-          </div>
+          </CardContent>
         </Card>
 
-        <Card title="Buying House" className="flex-2 text-center">
-          <div className="w-full h-50">
+        <Card
+          // className="flex-2 text-center rounded-sm"
+          className="flex flex-1 text-center rounded-sm min-w-60 min-h-60  gap-1 p-4"
+        >
+          <CardHeader>
+            <CardTitle className="text-sm">Buying House</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-grow flex-1 justify-center items-center text-center">
             <GaugeComponent
               type="semicircle"
               arc={{
                 width: 0.2,
                 padding: 0.005,
                 cornerRadius: 1,
-                // gradient: true,
                 subArcs: [
                   {
                     limit: 15,
@@ -452,64 +471,17 @@ export const YearPage = () => {
               minValue={10}
               maxValue={35}
             />
-          </div>
-        </Card>
-      </div>
-
-      <div className="flex flex-wrap gap-3 grow">
-        <Card
-          title="Net Income vs Expenses - Yearly"
-          className="flex-1 grow-4 shrink-0 text-center"
-        >
-          <div className="w-full h-80 shrink-0">
-            <ResponsiveContainer width={"100%"}>
-              <ComposedChart
-                data={monthData}
-                barCategoryGap={"20%"}
-                margin={{ left: -20 }}
-              >
-                <XAxis dataKey={"month"} tick={{ fontSize: "12px" }} />
-                <YAxis
-                  tick={{ fontSize: "12px", fontFamily: "Inter" }}
-                  tickFormatter={(value) => `$${value / 1000}K`}
-                />
-                <Tooltip
-                  content={({ payload }) => (
-                    <div className="p-2 border border-disable bg-secondary rounded-lg text-primary text-xs">
-                      {payload && payload.length ? (
-                        payload.map((entry, index) => (
-                          <div key={index} className="">
-                            <span>{entry.name}: </span>
-                            <span>${entry.value?.toLocaleString()}</span>
-                          </div>
-                        ))
-                      ) : (
-                        <div>No data available</div>
-                      )}
-                    </div>
-                  )}
-                />
-
-                <Legend
-                  wrapperStyle={{
-                    fontSize: "12px",
-                    fontFamily: "Inter",
-                    color: "#333",
-                  }}
-                />
-                <Bar dataKey={"income"} stackId={"a"} fill="#8884d8" />
-                <Bar dataKey={"expense"} stackId={"a"} fill="#82ca9d" />
-                <Line type="monotone" dataKey="save" stroke="#ff7300" />
-              </ComposedChart>
-            </ResponsiveContainer>
-          </div>
+          </CardContent>
         </Card>
 
         <Card
           title="Planned vs Actual Spending"
-          className="flex-1 grow-3 text-center"
+          className="flex flex-1 text-center rounded-sm min-w-60 gap-1 p-4"
         >
-          <div className="w-full h-80">
+          <CardHeader>
+            <CardTitle className="text-sm">Buying House</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-grow flex-1 justify-center items-center text-center">
             <ResponsiveContainer width="100%">
               <BarChart
                 data={budgetActualData}
@@ -561,11 +533,70 @@ export const YearPage = () => {
                 <Bar dataKey="actual" fill="#82ca9d" barSize={20} />
               </BarChart>
             </ResponsiveContainer>
-          </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="flex flex-wrap gap-1.5 grow-3 basis-0">
+        <Card
+          title="Net Income vs Expenses - Yearly"
+          className="flex-1 grow-1 shrink-0 text-center rounded-sm min-w-80 min-h-60"
+        >
+          <CardHeader>
+            <CardTitle className="text-sm">Buying House</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-grow flex-1 justify-center items-center text-center">
+            <ResponsiveContainer width={"100%"}>
+              <ComposedChart
+                data={monthData}
+                barCategoryGap={"20%"}
+                margin={{ left: -20 }}
+              >
+                <XAxis dataKey={"month"} tick={{ fontSize: "12px" }} />
+                <YAxis
+                  tick={{ fontSize: "12px", fontFamily: "Inter" }}
+                  tickFormatter={(value) => `$${value / 1000}K`}
+                />
+                <Tooltip
+                  content={({ payload }) => (
+                    <div className="p-2 border border-disable bg-secondary rounded-lg text-primary text-xs">
+                      {payload && payload.length ? (
+                        payload.map((entry, index) => (
+                          <div key={index} className="">
+                            <span>{entry.name}: </span>
+                            <span>${entry.value?.toLocaleString()}</span>
+                          </div>
+                        ))
+                      ) : (
+                        <div>No data available</div>
+                      )}
+                    </div>
+                  )}
+                />
+
+                <Legend
+                  wrapperStyle={{
+                    fontSize: "12px",
+                    fontFamily: "Inter",
+                    color: "#333",
+                  }}
+                />
+                <Bar dataKey={"income"} stackId={"a"} fill="#8884d8" />
+                <Bar dataKey={"expense"} stackId={"a"} fill="#82ca9d" />
+                <Line type="monotone" dataKey="save" stroke="#ff7300" />
+              </ComposedChart>
+            </ResponsiveContainer>
+          </CardContent>
         </Card>
 
-        <Card title="Investment Trends" className="flex-1 grow-5 text-center">
-          <div className="w-full h-80">
+        <Card
+          title="Investment Trends"
+          className="flex-1 grow-1 text-center rounded-sm min-w-80 min-h-60"
+        >
+          <CardHeader>
+            <CardTitle className="text-sm">Buying House</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-grow flex-1 justify-center items-center text-center">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart width={500} height={300} data={investmentTrendData}>
                 <XAxis dataKey={"month"} tick={{ fontSize: "12px" }} />
@@ -616,10 +647,9 @@ export const YearPage = () => {
                 />
               </LineChart>
             </ResponsiveContainer>
-          </div>
+          </CardContent>
         </Card>
       </div>
     </div>
   );
 };
-

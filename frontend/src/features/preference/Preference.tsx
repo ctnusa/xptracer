@@ -17,12 +17,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../../components/ui/input";
-import { themeSelector, currencySelector, languageSelector } from "./prefSelectors";
+import {
+  themeSelector,
+  currencySelector,
+  languageSelector,
+} from "./prefSelectors";
 import { useAppSelector } from "@/app/hooks";
 import { useTheme } from "@/hooks/useTheme";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { CircleIcon } from "lucide-react";
 
 type Preferences = {
   theme: string;
@@ -31,41 +36,29 @@ type Preferences = {
 };
 
 export const Preference: React.FC = () => {
-  const [preferences, setPreferences] = useState<Preferences>({
-    theme: "light",
-    notifications: true,
-    language: "English",
-  });
-
   const theme = useAppSelector(themeSelector);
   const currency = useAppSelector(currencySelector);
   const language = useAppSelector(languageSelector);
   const { isDarkMode, toggleTheme } = useTheme();
 
-  const handleChange =
-    (key: keyof Preferences) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      const value =
-        e.target.type === "checkbox" ? e.target.checked : e.target.value;
-      setPreferences({
-        ...preferences,
-        [key]: value,
-      });
-    };
+  const handleRadioChange = (value: string) => {
+    // Get value for the custom css variable from the root element
+    const fontSize = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue(value);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Submit preferences (e.g., send to backend or save in local storage)
-    console.log("Preferences saved:", preferences);
+    document.documentElement.style.setProperty("font-size", fontSize);
+    localStorage.setItem("font-size", value);
   };
 
   return (
     <div className="flex flex-col gap-2 ">
+      {/* Language & Currency */}
       <Card className="max-w-3xl w-2xl mx-auto">
         <CardHeader>
-          <CardTitle>Language & Region</CardTitle>
+          <CardTitle>Language & Currency</CardTitle>
           <CardDescription>
-            Select your preferred language and region.
+            Select your preferred language and currency.
           </CardDescription>
         </CardHeader>
         <CardContent className="max-w-65 flex flex-col gap-2">
@@ -124,6 +117,7 @@ export const Preference: React.FC = () => {
         </CardContent>
       </Card>
 
+      {/* Theme */}
       <Card className="max-w-3xl w-2xl mx-auto">
         <CardHeader>
           <CardTitle>Theme</CardTitle>
@@ -145,6 +139,7 @@ export const Preference: React.FC = () => {
         </CardContent>
       </Card>
 
+      {/* Font Size */}
       <Card className="max-w-3xl min-w-2xl mx-auto">
         <CardHeader>
           <CardTitle>Font Size</CardTitle>
@@ -152,42 +147,32 @@ export const Preference: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="flex max-w-xxl">
-            {/* Label for Currency */}
             <div className="flex items-center justify-end">
               <Label htmlFor="name" className="text-xs w-[70px]">
                 Font size
               </Label>
             </div>
-            {/* Select for Currency */}
             <div className="grow-1">
               <RadioGroup
-                defaultValue="option-one"
+                defaultValue={
+                  localStorage.getItem("font-size") || "--xptracer-font-size-sm"
+                }
+                onValueChange={handleRadioChange}
                 className="flex justify-evenly"
               >
-                <div className="flex items-center space-x-2 ">
-                  <RadioGroupItem value="option-one" id="option-one" />
-                  <Label htmlFor="option-one" className="text-xs">
-                    Extra small
-                  </Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="option-two" id="option-two" />
-                  <Label htmlFor="option-two" className="text-xs">
-                    Small
-                  </Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="option-two" id="option-two" />
-                  <Label htmlFor="option-two" className="text-xs">
-                    Large
-                  </Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="option-two" id="option-two" />
-                  <Label htmlFor="option-two" className="text-xs">
-                    Extra large
-                  </Label>
-                </div>
+                {[
+                  { label: "Extra small", value: "--xptracer-font-size-xs" },
+                  { label: "Small", value: "--xptracer-font-size-sm" },
+                  { label: "Large", value: "--xptracer-font-size-lg" },
+                  { label: "Extra large", value: "--xptracer-font-size-xl" },
+                ].map(({ label, value }, index) => (
+                  <div key={index} className="flex items-center space-x-2">
+                    <RadioGroupItem value={value} id={`r${index}`} />
+                    <Label htmlFor={`r${index}`} className="text-xs">
+                      {label}
+                    </Label>
+                  </div>
+                ))}
               </RadioGroup>
             </div>
           </div>
