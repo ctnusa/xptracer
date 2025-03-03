@@ -8,6 +8,16 @@ import {
 } from "../user/userSelectors";
 import { useAppSelector } from "@/app/hooks";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 export const UserProfile: React.FC = () => {
   const username = useAppSelector(selectUsername);
@@ -78,7 +88,81 @@ export const UserProfile: React.FC = () => {
         <CardHeader className="-mb-2">
           <CardTitle className="flex justify-between items-center">
             <div>Personal Information</div>
-            <Button className="h-6 rounded-sm">Edit</Button>
+            {/* <Button className="h-6 rounded-sm">Edit</Button> */}
+
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="bg-foreground text-background h-7">Edit</Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle className="text-sm">
+                    Edit Personal Information
+                  </DialogTitle>
+                  <DialogDescription className="text-xs">
+                    Make changes to your personal here. Click save when you're
+                    done.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="name" className="text-right text-xs">
+                      Username
+                    </Label>
+                    <Input
+                      id="name"
+                      value={username}
+                      className="col-span-3 !text-xs"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="username" className="text-right text-xs">
+                      First Name
+                    </Label>
+                    <Input
+                      id="username"
+                      value={firstname}
+                      className="col-span-3 !text-xs"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="username" className="text-right text-xs">
+                      Last Name
+                    </Label>
+                    <Input
+                      id="username"
+                      value={lastname}
+                      className="col-span-3 !text-xs"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="username" className="text-right text-xs">
+                      Email
+                    </Label>
+                    <Input
+                      id="username"
+                      value={email}
+                      className="col-span-3 !text-xs"
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="username" className="text-right text-xs">
+                      Phone
+                    </Label>
+                    <Input
+                      id="username"
+                      // value={phone}
+                      className="col-span-3 !text-xs"
+                    />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="submit" className=" text-xs">
+                    Save changes
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-2 max-w-80">
@@ -131,7 +215,7 @@ export const UserProfile: React.FC = () => {
 
       <Card className="max-w-3xl min-w-2xl mx-auto">
         <CardHeader className="-mb-2">
-        <CardTitle className="flex justify-between items-center">
+          <CardTitle className="flex justify-between items-center">
             <div>Address</div>
             <Button className="h-6 rounded-sm">Edit</Button>
           </CardTitle>
