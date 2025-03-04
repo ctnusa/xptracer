@@ -1,10 +1,12 @@
-import Sidebar from "@/components/Sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 import { Outlet } from "react-router-dom";
 
 const HomePage = () => {
   return (
     <div className="flex h-screen bg-tertiary">
-      <Sidebar />
+      {/* <Sidebar /> */}
+      <AppSidebar />
+
       <div className="w-full bg-tertiary overflow-auto">
         <Outlet />
       </div>
