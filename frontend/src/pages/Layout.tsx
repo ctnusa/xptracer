@@ -1,10 +1,9 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { Outlet } from "react-router-dom";
 
-const HomePage = () => {
+export const Layout = () => {
   return (
     <div className="flex h-screen bg-tertiary">
-      {/* <Sidebar /> */}
       <AppSidebar />
 
       <div className="w-full bg-tertiary overflow-auto">
@@ -14,4 +13,3 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;

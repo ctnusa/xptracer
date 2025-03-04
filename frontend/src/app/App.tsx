@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import client from "../apolloClient";
 import { ThemeProvider } from "../contexts/ThemeContext";
 import { ExpensePage } from "../pages/ExpensePage";
-import HomePage from "../pages/HomePage";
+import { Layout } from "../pages/Layout";
 import LoginPage from "../pages/LoginPage";
 import { MonthPage } from "../pages/MonthPage";
 import NotFoundPage from "../pages/NotFoundPage";
@@ -44,7 +44,7 @@ const App: React.FC = () => {
             <BrowserRouter>
               <Routes>
                 <Route element={<ProtectedRoutes />}>
-                  <Route path="/" element={<HomePage />}>
+                  <Route path="/" element={<Layout />}>
                     <Route index element={<YearPage />} />
                     <Route path="month" element={<MonthPage />} />
                     <Route path="expense" element={<ExpensePage />} />
