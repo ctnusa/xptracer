@@ -54,7 +54,7 @@ export const Preference: React.FC = () => {
   return (
     <div className="flex flex-col gap-2 ">
       {/* Language & Currency */}
-      <Card className="max-w-3xl w-2xl mx-auto">
+      <Card className="max-w-3xl w-2xl mx-auto rounded-sm shadow-none">
         <CardHeader>
           <CardTitle>Language & Currency</CardTitle>
           <CardDescription>
@@ -118,7 +118,7 @@ export const Preference: React.FC = () => {
       </Card>
 
       {/* Theme */}
-      <Card className="max-w-3xl w-2xl mx-auto">
+      <Card className="max-w-3xl w-2xl mx-auto rounded-sm shadow-none">
         <CardHeader>
           <CardTitle>Theme</CardTitle>
           <CardDescription>Select your preferred theme.</CardDescription>
@@ -140,7 +140,7 @@ export const Preference: React.FC = () => {
       </Card>
 
       {/* Font Size */}
-      <Card className="max-w-3xl min-w-2xl mx-auto">
+      <Card className="max-w-3xl min-w-2xl mx-auto rounded-sm">
         <CardHeader>
           <CardTitle>Font Size</CardTitle>
           <CardDescription>Select your preferred font size.</CardDescription>

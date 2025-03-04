@@ -27,7 +27,7 @@ export const UserProfile: React.FC = () => {
 
   return (
     <div className="flex flex-col gap-2 ">
-      <Card className="max-w-3xl w-2xl mx-auto">
+      <Card className="max-w-3xl w-2xl mx-auto rounded-sm shadow-none">
         <CardHeader className="-mb-2">
           <CardTitle>Profile</CardTitle>
         </CardHeader>
@@ -84,7 +84,7 @@ export const UserProfile: React.FC = () => {
         </CardContent>
       </Card>
 
-      <Card className="max-w-3xl w-2xl mx-auto">
+      <Card className="max-w-3xl w-2xl mx-auto rounded-sm shadow-none">
         <CardHeader className="-mb-2">
           <CardTitle className="flex justify-between items-center">
             <div>Personal Information</div>
@@ -94,7 +94,7 @@ export const UserProfile: React.FC = () => {
               <DialogTrigger asChild>
                 <Button variant="outline" className="bg-foreground text-background h-7">Edit</Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
+              <DialogContent className="sm:max-w-[425px]" onOpenAutoFocus={(e) => e.preventDefault()}>
                 <DialogHeader>
                   <DialogTitle className="text-sm">
                     Edit Personal Information
@@ -104,7 +104,7 @@ export const UserProfile: React.FC = () => {
                     done.
                   </DialogDescription>
                 </DialogHeader>
-                <div className="grid gap-4 py-4">
+                <div className="grid gap-2 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="name" className="text-right text-xs">
                       Username
@@ -142,16 +142,6 @@ export const UserProfile: React.FC = () => {
                     <Input
                       id="username"
                       value={email}
-                      className="col-span-3 !text-xs"
-                    />
-                  </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="username" className="text-right text-xs">
-                      Phone
-                    </Label>
-                    <Input
-                      id="username"
-                      // value={phone}
                       className="col-span-3 !text-xs"
                     />
                   </div>
@@ -208,61 +198,6 @@ export const UserProfile: React.FC = () => {
             </Label>
             <Label htmlFor="name" className="text-xs">
               (510) 990-1234
-            </Label>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card className="max-w-3xl min-w-2xl mx-auto">
-        <CardHeader className="-mb-2">
-          <CardTitle className="flex justify-between items-center">
-            <div>Address</div>
-            <Button className="h-6 rounded-sm">Edit</Button>
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="max-w-80 flex flex-col gap-2">
-          <div className="flex justify-between items-center">
-            <Label htmlFor="name" className="text-xs font-bold">
-              Street
-            </Label>
-            <Label htmlFor="name" className="text-xs">
-              1975 Brantley Drive
-            </Label>
-          </div>
-
-          <div className="flex justify-between items-center">
-            <Label htmlFor="name" className="text-xs font-bold">
-              Country
-            </Label>
-            <Label htmlFor="name" className="text-xs">
-              United States of America
-            </Label>
-          </div>
-
-          <div className="flex justify-between items-center">
-            <Label htmlFor="name" className="text-xs font-bold">
-              City
-            </Label>
-            <Label htmlFor="name" className="text-xs">
-              San Jose
-            </Label>
-          </div>
-
-          <div className="flex justify-between items-center">
-            <Label htmlFor="name" className="text-xs font-bold">
-              State
-            </Label>
-            <Label htmlFor="name" className="text-xs">
-              California
-            </Label>
-          </div>
-
-          <div className="flex justify-between items-center">
-            <Label htmlFor="name" className="text-xs font-bold">
-              Postal Code
-            </Label>
-            <Label htmlFor="name" className="text-xs">
-              95131
             </Label>
           </div>
         </CardContent>

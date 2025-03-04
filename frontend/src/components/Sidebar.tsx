@@ -52,7 +52,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`flex flex-col justify-between h-screen text-sm transition-all duration-300 border-foreground border-solid border-r-1 border-disable items-start shadow-sm bg-background px-1 ${
+      className={`flex flex-col justify-between h-screen text-sm transition-all duration-300  border-solid border-r-1 items-start shadow-sm bg-sidebar px-1 ${
         isOpen ? "w-64" : "w-13"
       }`}
     >

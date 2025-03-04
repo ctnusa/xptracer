@@ -116,7 +116,7 @@ export const YearPage = () => {
   return (
     <div className="flex flex-col w-full h-screen gap-1.5 p-2">
       <div className="flex flex-wrap gap-1.5 w-full grow-1 basis-0">
-        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4">
+        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4 shadow-none">
           <CardHeader>
             <CardTitle className="text-sm">Profile</CardTitle>
           </CardHeader>
@@ -129,7 +129,7 @@ export const YearPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4">
+        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4 shadow-none">
           <CardHeader>
             <CardTitle className="text-sm">Year</CardTitle>
           </CardHeader>
@@ -138,7 +138,7 @@ export const YearPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4">
+        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4 shadow-none">
           <CardHeader>
             <CardTitle className="text-sm">Gross Revenue</CardTitle>
           </CardHeader>
@@ -147,7 +147,7 @@ export const YearPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4">
+        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4 shadow-none">
           <CardHeader>
             <CardTitle className="text-sm">Net Revenue</CardTitle>
           </CardHeader>
@@ -156,7 +156,7 @@ export const YearPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4">
+        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4 shadow-none">
           <CardHeader>
             <CardTitle className="text-sm">Tax Deductions</CardTitle>
           </CardHeader>
@@ -165,7 +165,7 @@ export const YearPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4">
+        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4 shadow-none">
           <CardHeader>
             <CardTitle className="text-sm">Expenses</CardTitle>
           </CardHeader>
@@ -174,7 +174,7 @@ export const YearPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4">
+        <Card className="flex flex-1 text-center rounded-sm min-w-50 gap-1 p-4 shadow-none">
           <CardHeader>
             <CardTitle className="text-sm">Saving</CardTitle>
           </CardHeader>
@@ -194,7 +194,7 @@ export const YearPage = () => {
       </div>
 
       <div className="flex flex-wrap gap-1.5 grow-3 basis-0">
-        <Card className="flex flex-1 text-center rounded-sm min-w-60 min-h-60 gap-1 p-4">
+        <Card className="flex flex-1 text-center rounded-sm min-w-60 min-h-60 gap-1 p-4 shadow-none">
           <CardHeader>
             <CardTitle className="text-sm">Expenses Breakdown</CardTitle>
           </CardHeader>
@@ -260,7 +260,7 @@ export const YearPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-1 text-center rounded-sm min-w-60  min-h-60 gap-1 p-4">
+        <Card className="flex flex-1 text-center rounded-sm min-w-60 min-h-60 gap-1 p-4 shadow-none">
           <CardHeader>
             <CardTitle className="text-sm">Income Breakdown</CardTitle>
           </CardHeader>
@@ -326,7 +326,7 @@ export const YearPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-1 text-center rounded-sm min-w-60 min-h-60  gap-1 p-4">
+        <Card className="flex flex-1 text-center rounded-sm min-w-60 min-h-60 gap-1 p-4 shadow-none">
           <CardHeader>
             <CardTitle className="text-sm">Investment Breakdown</CardTitle>
           </CardHeader>
@@ -394,7 +394,7 @@ export const YearPage = () => {
 
         <Card
           // className="flex-2 text-center rounded-sm"
-          className="flex flex-1 text-center rounded-sm min-w-60 min-h-60  gap-1 p-4"
+          className="flex flex-1 text-center rounded-sm min-w-60 min-h-60 gap-1 p-4 shadow-none"
         >
           <CardHeader>
             <CardTitle className="text-sm">Buying House</CardTitle>
@@ -476,7 +476,7 @@ export const YearPage = () => {
 
         <Card
           title="Planned vs Actual Spending"
-          className="flex flex-1 text-center rounded-sm min-w-60 gap-1 p-4"
+          className="flex flex-1 text-center rounded-sm min-w-60 gap-1 p-4 shadow-none"
         >
           <CardHeader>
             <CardTitle className="text-sm">Buying House</CardTitle>
@@ -540,7 +540,7 @@ export const YearPage = () => {
       <div className="flex flex-wrap gap-1.5 grow-3 basis-0">
         <Card
           title="Net Income vs Expenses - Yearly"
-          className="flex-1 grow-1 shrink-0 text-center rounded-sm min-w-80 min-h-60"
+          className="flex-1 grow-1 shrink-0 text-center rounded-sm min-w-80 min-h-60 shadow-none"
         >
           <CardHeader>
             <CardTitle className="text-sm">Buying House</CardTitle>
@@ -591,7 +591,7 @@ export const YearPage = () => {
 
         <Card
           title="Investment Trends"
-          className="flex-1 grow-1 text-center rounded-sm min-w-80 min-h-60"
+          className="flex-1 grow-1 text-center rounded-sm min-w-80 min-h-60 shadow-none"
         >
           <CardHeader>
             <CardTitle className="text-sm">Buying House</CardTitle>
