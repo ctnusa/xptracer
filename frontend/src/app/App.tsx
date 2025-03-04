@@ -35,10 +35,11 @@ const App: React.FC = () => {
           <SidebarProvider
             style={
               {
-                "--sidebar-width": "13rem",
+                "--sidebar-width": "14rem",
                 "--sidebar-width-mobile": "20rem",
               } as React.CSSProperties
             }
+            className="flex justify-center items-center h-screen"
           >
             <BrowserRouter>
               <Routes>
